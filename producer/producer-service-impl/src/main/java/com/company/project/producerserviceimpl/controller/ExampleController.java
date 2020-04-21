@@ -25,11 +25,16 @@ public class ExampleController {
     @Autowired
     private ExampleService exampleService;
 
-    @ApiOperation("待加粉用户列表")
-    @PostMapping("/common/list")
-    @Deprecated
+    @ApiOperation("列表")
+    @PostMapping("/list")
     public Result<ResultListVo<ExampleResultVo>> selectCommonUsers(@RequestBody ExampleQueryVo userQuery) {
         return exampleService.selectExampleList(userQuery);
+    }
+
+    @ApiOperation("远程调用")
+    @PostMapping("/remote")
+    public Result<ResultListVo<ExampleResultVo>> callRemote() {
+        return exampleService.callRemote();
     }
 
 }

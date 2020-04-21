@@ -25,6 +25,17 @@
 			<artifactId>hutool-all</artifactId>
 		</dependency>
 
+        <!--springboot starter-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+
 		<!--swagger ui-->
 		<dependency>
 			<groupId>io.springfox</groupId>

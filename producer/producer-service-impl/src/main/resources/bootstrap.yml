@@ -18,6 +18,6 @@ spring:
       discovery:
         server-addr: 47.98.60.103:8848
   application:
-    name: project
+    name: producer
   profiles:
     active: local

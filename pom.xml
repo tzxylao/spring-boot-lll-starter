@@ -29,6 +29,7 @@
     <modules>
         <module>base</module>
         <module>producer</module>
+        <module>consumer</module>
     </modules>
 
     <dependencies>
