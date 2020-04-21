@@ -1,0 +1,114 @@
+<configuration>
+    <contextName>logback</contextName>
+    <!--配置文件中参数-->
+    <springProperty scope="context" name="applicationName" source="spring.application.name"/>
+    <!--<springProperty scope="context" name="alertEmail" source="onegene.alert.email"/>-->
+    <springProperty scope="context" name="profile" source="spring.profiles.active"/>
+    <!--  邮件 -->
+    <!-- SMTP server的地址，必需指定。如网易的SMTP服务器地址是： smtp.163.com -->
+    <property name="smtpHost" value="hwhzsmtp.qiye.163.com"/><!--填入要发送邮件的smtp服务器地址(问DBA或者经理啥的就知道)-->
+    <!-- SMTP server的端口地址。默认值：25 -->
+    <property name="smtpPort" value="465"/>
+    <!-- 发送邮件账号，默认为null -->
+    <property name="username" value="xxxx@163.com.cn"/><!--发件人账号-->
+    <!-- 发送邮件密码，默认为null -->
+    <property name="password" value="xxxx"/><!--发件人密码-->
+    <!-- 如果设置为true，appender将会使用SSL连接到日志服务器。默认值：false -->
+    <property name="SSL" value="true"/>
+    <!-- 指定发送到那个邮箱，可设置多个<to>属性，指定多个目的邮箱 -->
+    <property name="email_to" value="${alertEmail}"/><!--收件人账号多个可以逗号隔开-->
+    <!-- 指定发件人名称。如果设置成“&lt;ADMIN&gt; ”，则邮件发件人将会是“<ADMIN> ” -->
+    <property name="email_from" value="xxxx@163.com.cn"/>
+    <!-- 指定emial的标题，它需要满足PatternLayout中的格式要求。如果设置成“Log: %logger - %msg ”，就案例来讲，则发送邮件时，标题为“【Error】: com.foo.Bar - Hello World ”。 默认值："%logger{20} - %m". -->
+    <property name="email_subject" value="【${applicationName}:${profile}:Error】: %logger"/>
+    <!-- ERROR邮件发送 -->
+    <appender name="EMAIL" class="ch.qos.logback.classic.net.SMTPAppender">
+        <smtpHost>${smtpHost}</smtpHost>
+        <smtpPort>${smtpPort}</smtpPort>
+        <username>${username}</username>
+        <password>${password}</password>
+        <asynchronousSending>true</asynchronousSending>
+        <SSL>${SSL}</SSL>
+        <to>${email_to}</to>
+        <from>${email_from}</from>
+        <subject>${email_subject}</subject>
+        　　　　 <!-- html格式-->
+        <layout class="ch.qos.logback.classic.html.HTMLLayout">
+            <Pattern>%date%level%thread%logger{0}%line%message</Pattern>
+        </layout>
+        　　　　 <!-- 这里采用等级过滤器 指定等级相符才发送 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <cyclicBufferTracker class="ch.qos.logback.core.spi.CyclicBufferTracker">
+            <!-- 每个电子邮件只发送一个日志条目 -->
+            <bufferSize>1</bufferSize>
+        </cyclicBufferTracker>
+    </appender>
+
+    <!-- name的值是变量的名称，value的值时变量定义的值。通过定义的值会被插入到logger上下文中。定义变量后，可以使“${}”来使用变量。 -->
+    <property name="log.path" value="log"/>
+
+    <!-- 彩色日志 -->
+    <!-- 彩色日志依赖的渲染类 -->
+    <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter"/>
+    <conversionRule conversionWord="wex"
+                    converterClass="org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter"/>
+    <conversionRule conversionWord="wEx"
+                    converterClass="org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter"/>
+    <!-- 彩色日志格式 -->
+    <property name="CONSOLE_LOG_PATTERN"
+              value="${CONSOLE_LOG_PATTERN:-%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}"/>
+
+
+    <!--输出到控制台-->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <!--此日志appender是为开发使用，只配置最底级别，控制台输出的日志级别是大于或等于此级别的日志信息-->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>debug</level>
+        </filter>
+        <encoder>
+            <Pattern>${CONSOLE_LOG_PATTERN}</Pattern>
+            <!-- 设置字符集 -->
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!--输出到文件-->
+    <!-- 时间滚动输出 level为 DEBUG 日志 -->
+    <appender name="DEBUG_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 正在记录的日志文件的路径及文件名 -->
+        <file>${log.path}/${applicationName}-log.log</file>
+        <!--日志文件输出格式-->
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+            <charset>UTF-8</charset> <!-- 设置字符集 -->
+        </encoder>
+        <!-- 日志记录器的滚动策略，按日期，按大小记录 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 日志归档 -->
+            <fileNamePattern>${log.path}/${applicationName}-log-%d{yyyyMMdd}.log.%i</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>500MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <!--日志文件保留天数-->
+            <maxHistory>15</maxHistory>
+        </rollingPolicy>
+    </appender>
+    <logger name="com.company.project" level="debug"/>
+    <springProfile name="local">
+        <root level="info">
+            <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="DEBUG_FILE"/>
+        </root>
+    </springProfile>
+    <springProfile name="dev,pro">
+        <root level="info">
+            <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="DEBUG_FILE"/>
+            <!--<appender-ref ref="EMAIL"/>-->
+        </root>
+    </springProfile>
+</configuration>

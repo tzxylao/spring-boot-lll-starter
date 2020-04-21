@@ -1,0 +1,23 @@
+spring:
+  cloud:
+    nacos:
+      username: nacos
+      password: nacos
+      config:
+        shared-configs[0]:
+          refresh: true
+          data-id: common.properties
+          group: GROUP_APP
+        refresh-enabled: true
+        server-addr: 47.98.60.103:8848
+        extension-configs[0]:
+          refresh: true
+          data-id: extension.properties
+          group: GROUP_APP
+        file-extension: yml
+      discovery:
+        server-addr: 47.98.60.103:8848
+  application:
+    name: project
+  profiles:
+    active: local
