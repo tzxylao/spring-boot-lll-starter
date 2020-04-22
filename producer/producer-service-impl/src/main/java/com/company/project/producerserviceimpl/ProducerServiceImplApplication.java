@@ -11,7 +11,7 @@ import tk.mybatis.spring.annotation.MapperScan;
 @ComponentScan("com.company.project")
 @MapperScan(basePackages = {"com.company.project.*.mapper"})
 @EnableDiscoveryClient
-@EnableFeignClients
+@EnableFeignClients(basePackages = {"com.company.project"})
 public class ProducerServiceImplApplication {
 
 	public static void main(String[] args) {

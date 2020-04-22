@@ -17,7 +17,7 @@ import java.util.*;
 import static com.company.project.producerserviceimpl.generate.ProjectConstant.*;
 
 /**
- * 代码生成器，根据数据表名称生成对应的Model、Mapper、Service、Controller简化开发。
+ * 代码生成器，根据数据表名称生成对应的pojo、Mapper、Service、Controller、ServiceImpl简化开发。
  */
 public class CodeGenerator {
     //JDBC配置，请修改为你项目的实际配置
@@ -27,8 +27,9 @@ public class CodeGenerator {
     public static final String JDBC_PASSWORD = "it123456";
     public static final String JDBC_DIVER_CLASS_NAME = "com.mysql.cj.jdbc.Driver";
 
-    private static final String PROJECT_PATH = System.getProperty("user.dir");//项目在硬盘上的基础路径
-    private static final String TEMPLATE_FILE_PATH = PROJECT_PATH + "/src/test/resources/generator/template";//模板位置
+    private static final String PROJECT_PATH_SERVICE_IMPL = System.getProperty("user.dir") + "/" + PROJECT_SERVICE_IMPL;//项目在硬盘上的基础路径
+    private static final String PROJECT_PATH_SERVICE = System.getProperty("user.dir") + "/" + PROJECT_SERVICE;//项目在硬盘上的基础路径
+    private static final String TEMPLATE_FILE_PATH = PROJECT_PATH_SERVICE_IMPL + PROJECT_SERVICE_IMPL + "/src/test/resources/generator/template";//模板位置
 
     private static final String JAVA_PATH = "/src/main/java"; //java文件路径
     private static final String RESOURCES_PATH = "/src/main/resources";//资源文件路径
@@ -51,7 +52,8 @@ public class CodeGenerator {
     private static final boolean overwrite = true;
 
     public static void main(String[] args) {
-        genCode("unlock_order");
+        String property = System.getProperty("user.dir");
+//        genCode("unlock_order");
 //        genCodeByCustomModelName("输入表名","输入自定义Model名称");
     }
 
@@ -186,7 +188,7 @@ public class CodeGenerator {
             data.put("hasDate", javaBean.getHasDate());
             data.put("javaBean", javaBean);
 
-            File file = new File(PROJECT_PATH + JAVA_PATH + PACKAGE_PATH_QUERY_VO + modelNameUpperCamel + suffixQuery + ".java");
+            File file = new File(PROJECT_PATH_SERVICE + JAVA_PATH + PACKAGE_PATH_QUERY_VO + modelNameUpperCamel + suffixQuery + ".java");
             if (!file.getParentFile().exists()) {
                 file.getParentFile().mkdirs();
             }
@@ -194,21 +196,21 @@ public class CodeGenerator {
                     new FileWriter(file));
             System.out.println(modelNameUpperCamel + suffixQuery + ".java 生成成功");
 
-            file = new File(PROJECT_PATH + JAVA_PATH + PACKAGE_PATH_QUERY_VO + modelNameUpperCamel + suffixAdd + ".java");
+            file = new File(PROJECT_PATH_SERVICE + JAVA_PATH + PACKAGE_PATH_QUERY_VO + modelNameUpperCamel + suffixAdd + ".java");
             if (!file.exists() || overwrite) {
                 cfg.getTemplate("addVo.ftl").process(data,
                         new FileWriter(file));
                 System.out.println(modelNameUpperCamel + suffixAdd + ".java 生成成功");
             }
 
-            file = new File(PROJECT_PATH + JAVA_PATH + PACKAGE_PATH_QUERY_VO + modelNameUpperCamel + suffixUpdate + ".java");
+            file = new File(PROJECT_PATH_SERVICE + JAVA_PATH + PACKAGE_PATH_QUERY_VO + modelNameUpperCamel + suffixUpdate + ".java");
             if (!file.exists() || overwrite) {
                 cfg.getTemplate("updateVo.ftl").process(data,
                         new FileWriter(file));
                 System.out.println(modelNameUpperCamel + suffixUpdate + ".java 生成成功");
             }
 
-            file = new File(PROJECT_PATH + JAVA_PATH + PACKAGE_PATH_QUERY_VO + modelNameUpperCamel + suffixDetail + ".java");
+            file = new File(PROJECT_PATH_SERVICE + JAVA_PATH + PACKAGE_PATH_QUERY_VO + modelNameUpperCamel + suffixDetail + ".java");
             if (!file.exists() || overwrite) {
                 cfg.getTemplate("detailVo.ftl").process(data,
                         new FileWriter(file));
@@ -240,7 +242,7 @@ public class CodeGenerator {
             data.put("hasDate", javaBean.getHasDate());
             data.put("javaBean", javaBean);
 
-            File file = new File(PROJECT_PATH + JAVA_PATH + PACKAGE_PATH_RESULT_VO + modelNameUpperCamel + suffixResult + ".java");
+            File file = new File(PROJECT_PATH_SERVICE + JAVA_PATH + PACKAGE_PATH_RESULT_VO + modelNameUpperCamel + suffixResult + ".java");
             if (!file.getParentFile().exists()) {
                 file.getParentFile().mkdirs();
             }
@@ -249,7 +251,7 @@ public class CodeGenerator {
                         new FileWriter(file));
                 System.out.println(modelNameUpperCamel + suffixResult + ".java 生成成功");
 
-                file = new File(PROJECT_PATH + JAVA_PATH + PACKAGE_PATH_RESULT_VO + modelNameUpperCamel + suffixDetailResult + ".java");
+                file = new File(PROJECT_PATH_SERVICE + JAVA_PATH + PACKAGE_PATH_RESULT_VO + modelNameUpperCamel + suffixDetailResult + ".java");
                 cfg.getTemplate("detailResultVo.ftl").process(data,
                         new FileWriter(file));
                 System.out.println(modelNameUpperCamel + suffixDetailResult + ".java 生成成功");
@@ -280,17 +282,17 @@ public class CodeGenerator {
         context.addPluginConfiguration(pluginConfiguration);
 
         JavaModelGeneratorConfiguration javaModelGeneratorConfiguration = new JavaModelGeneratorConfiguration();
-        javaModelGeneratorConfiguration.setTargetProject(PROJECT_PATH + JAVA_PATH);
+        javaModelGeneratorConfiguration.setTargetProject(PROJECT_PATH_SERVICE + JAVA_PATH);
         javaModelGeneratorConfiguration.setTargetPackage(MODEL_PACKAGE);
         context.setJavaModelGeneratorConfiguration(javaModelGeneratorConfiguration);
 
         SqlMapGeneratorConfiguration sqlMapGeneratorConfiguration = new SqlMapGeneratorConfiguration();
-        sqlMapGeneratorConfiguration.setTargetProject(PROJECT_PATH + RESOURCES_PATH);
+        sqlMapGeneratorConfiguration.setTargetProject(PROJECT_PATH_SERVICE_IMPL + RESOURCES_PATH);
         sqlMapGeneratorConfiguration.setTargetPackage("mapper");
         context.setSqlMapGeneratorConfiguration(sqlMapGeneratorConfiguration);
 
         JavaClientGeneratorConfiguration javaClientGeneratorConfiguration = new JavaClientGeneratorConfiguration();
-        javaClientGeneratorConfiguration.setTargetProject(PROJECT_PATH + JAVA_PATH);
+        javaClientGeneratorConfiguration.setTargetProject(PROJECT_PATH_SERVICE_IMPL + JAVA_PATH);
         javaClientGeneratorConfiguration.setTargetPackage(MAPPER_PACKAGE);
         javaClientGeneratorConfiguration.setConfigurationType("XMLMAPPER");
         context.setJavaClientGeneratorConfiguration(javaClientGeneratorConfiguration);
@@ -343,7 +345,7 @@ public class CodeGenerator {
             data.put("hasDate", javaBean.getHasDate());
             data.put("javaBean", javaBean);
 
-            File file = new File(PROJECT_PATH + JAVA_PATH + PACKAGE_PATH_SERVICE + modelNameUpperCamel + "Service.java");
+            File file = new File(PROJECT_PATH_SERVICE + JAVA_PATH + PACKAGE_PATH_SERVICE + modelNameUpperCamel + "Service.java");
             if (!file.getParentFile().exists()) {
                 file.getParentFile().mkdirs();
             }
@@ -351,7 +353,7 @@ public class CodeGenerator {
                     new FileWriter(file));
             System.out.println(modelNameUpperCamel + "Service.java 生成成功");
 
-            File file1 = new File(PROJECT_PATH + JAVA_PATH + PACKAGE_PATH_SERVICE_IMPL + modelNameUpperCamel + "ServiceImpl.java");
+            File file1 = new File(PROJECT_PATH_SERVICE_IMPL + JAVA_PATH + PACKAGE_PATH_SERVICE_IMPL + modelNameUpperCamel + "ServiceImpl.java");
             if (!file1.getParentFile().exists()) {
                 file1.getParentFile().mkdirs();
             }
@@ -383,7 +385,7 @@ public class CodeGenerator {
             data.put("hasDate", javaBean.getHasDate());
             data.put("javaBean", javaBean);
 
-            File file = new File(PROJECT_PATH + JAVA_PATH + PACKAGE_PATH_CONTROLLER + modelNameUpperCamel + "Controller.java");
+            File file = new File(PROJECT_PATH_SERVICE_IMPL + JAVA_PATH + PACKAGE_PATH_CONTROLLER + modelNameUpperCamel + "Controller.java");
             if (!file.getParentFile().exists()) {
                 file.getParentFile().mkdirs();
             }

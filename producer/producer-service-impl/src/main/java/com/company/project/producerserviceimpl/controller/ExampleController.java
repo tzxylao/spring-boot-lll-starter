@@ -1,5 +1,6 @@
 package com.company.project.producerserviceimpl.controller;
 
+import com.company.project.base.common.Request;
 import com.company.project.base.common.Result;
 import com.company.project.base.common.ResultListVo;
 import com.company.project.producerservice.pojo.query.ExampleQueryVo;
@@ -22,19 +23,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/crm")
 @Api(tags = "example")
 public class ExampleController {
+
     @Autowired
     private ExampleService exampleService;
 
     @ApiOperation("列表")
     @PostMapping("/list")
-    public Result<ResultListVo<ExampleResultVo>> selectCommonUsers(@RequestBody ExampleQueryVo userQuery) {
-        return exampleService.selectExampleList(userQuery);
+    public Result<ResultListVo<ExampleResultVo>> selectCommonUsers(@RequestBody Request<ExampleQueryVo> request) {
+        return exampleService.selectExampleList(request);
     }
 
-    @ApiOperation("远程调用")
-    @PostMapping("/remote")
-    public Result<ResultListVo<ExampleResultVo>> callRemote() {
-        return exampleService.callRemote();
-    }
 
 }
