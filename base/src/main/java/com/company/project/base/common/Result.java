@@ -1,5 +1,6 @@
 package com.company.project.base.common;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ public class Result<T> {
     /**
      * 执行业务类名
      */
+    @JsonIgnore
     private List<String> businessClass;
 
     public Result<T> addBusinessClass(List<String> businessClass) {
@@ -53,7 +55,7 @@ public class Result<T> {
     }
 
     public static <T> Result<T> ok(T data, List<String> businessClass) {
-        return ok(20000, data, businessClass);
+        return ok(BaseStatusCode.SUCCESS.code(), data, businessClass);
     }
 
     public static <T> Result<T> ok(Integer code, T data, List<String> businessClass) {
@@ -82,7 +84,7 @@ public class Result<T> {
     }
 
     public static <T> Result<T> failure(T data, List<String> businessClass) {
-        return failure(50000, data, businessClass);
+        return failure(BaseStatusCode.FAILURE.code(), data, businessClass);
     }
 
     public static <T> Result<T> failure(Integer code, T data, List<String> businessClass) {

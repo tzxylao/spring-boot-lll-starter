@@ -5,13 +5,13 @@ package com.company.project.base.exeception;
  * @description
  * @Date 2019/11/27 14:33
  **/
-public class DataException extends RuntimeException {
+public class ConditionException extends RuntimeException {
 
-    public DataException(String message) {
+    public ConditionException(String message) {
         super(message);
     }
 
-    public DataException(String message, Throwable cause) {
+    public ConditionException(String message, Throwable cause) {
         super(message, cause);
     }
 }

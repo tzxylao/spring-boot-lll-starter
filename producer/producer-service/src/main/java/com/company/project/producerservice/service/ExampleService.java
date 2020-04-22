@@ -3,42 +3,43 @@ package com.company.project.producerservice.service;
 import com.company.project.base.common.Request;
 import com.company.project.base.common.Result;
 import com.company.project.base.common.ResultListVo;
-import com.company.project.base.exeception.ExceptionProcessor;
-import com.company.project.consumerservice.pojo.entity.Consumer;
+import com.company.project.producerservice.pojo.add.ExampleAddVo;
+import com.company.project.producerservice.pojo.delete.ExampleDeleteVo;
+import com.company.project.producerservice.pojo.query.ExampleDetailVo;
 import com.company.project.producerservice.pojo.query.ExampleQueryVo;
+import com.company.project.producerservice.pojo.result.ExampleDetailResultVo;
 import com.company.project.producerservice.pojo.result.ExampleResultVo;
-import feign.hystrix.FallbackFactory;
-import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.PostMapping;
+import com.company.project.producerservice.pojo.update.ExampleUpdateVo;
 
 /**
  * @author: laoliangliang
  * @description:
  * @create: 2020/4/20 15:17
  **/
-@FeignClient(name = "producer", fallbackFactory = ExampleService.ExampleServiceFallbackFactory.class)
 public interface ExampleService {
 
-    @PostMapping("/selectExampleList")
-    Result<ResultListVo<ExampleResultVo>> selectExampleList(Request<ExampleQueryVo> request);
+    /**
+     * 查询XXX订单列表
+     */
+    Result<ResultListVo<ExampleResultVo>> getExampleList(Request<ExampleQueryVo> request);
 
-    @PostMapping("/callRemote")
-    Result<Consumer> callRemote();
+    /**
+     * 查询XXX订单单项
+     */
+    Result<ExampleDetailResultVo> getExample(Request<ExampleDetailVo> request);
 
-    class ExampleServiceFallbackFactory implements FallbackFactory<ExampleService> {
-        @Override
-        public ExampleService create(Throwable throwable) {
-            return new ExampleService() {
-                @Override
-                public Result<ResultListVo<ExampleResultVo>> selectExampleList(Request<ExampleQueryVo> userQuery) {
-                    return ExceptionProcessor.getResult(throwable.getMessage());
-                }
+    /**
+     * 添加XXX订单
+     */
+    Result addExample(Request<ExampleAddVo> request);
 
-                @Override
-                public Result<Consumer> callRemote() {
-                    return ExceptionProcessor.getResult(throwable.getMessage());
-                }
-            };
-        }
-    }
+    /**
+     * 更新XXX订单
+     */
+    Result updateExample(Request<ExampleUpdateVo> request);
+
+    /**
+     * 删除XXX订单
+     */
+    Result deleteExample(Request<ExampleDeleteVo> unlockOrderDeleteVo);
 }

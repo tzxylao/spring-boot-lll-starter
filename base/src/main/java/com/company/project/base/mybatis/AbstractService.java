@@ -1,7 +1,7 @@
 package com.company.project.base.mybatis;
 
 
-import com.company.project.base.exeception.DataException;
+import com.company.project.base.exeception.DataNullException;
 import org.apache.ibatis.exceptions.TooManyResultsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import tk.mybatis.mapper.entity.Condition;
@@ -67,7 +67,7 @@ public abstract class AbstractService<T> implements Service<T> {
             field.setAccessible(true);
             field.set(model, value);
         } catch (InstantiationException | IllegalAccessException | NoSuchFieldException e) {
-            throw new DataException("findBy方法反射异常");
+            throw new DataNullException("findBy方法反射异常");
         }
 
         return mapper.selectOne(model);
