@@ -9,10 +9,13 @@ public final class ProjectConstant {
      */
 //    public static final String BASE_PACKAGE = "com.onegene.platform.crmwork";
 //    public static final String BASE_PACKAGE = "com.onegene.platform.biologywork";
+    public static final String ROOT_PACKAGE = "com.company.project";
     public static final String PROJECT = "producer";
+    public static final String SERVICE = PROJECT + "service";
+    public static final String SERVICE_IMPL = PROJECT + "serviceimpl";
     public static final String PROJECT_SERVICE = PROJECT + "/" + PROJECT + "-service";
     public static final String PROJECT_SERVICE_IMPL = PROJECT + "/" + PROJECT + "-service-impl";
-    public static final String BASE_PACKAGE = "com.company.project." + PROJECT;
+    public static final String BASE_PACKAGE = ROOT_PACKAGE + "." + PROJECT;
 //    public static final String BASE_PACKAGE = "com.onegene.platform.platformwork";
 
     /**

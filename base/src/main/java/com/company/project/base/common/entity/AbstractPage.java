@@ -1,4 +1,4 @@
-package com.company.project.base.common;
+package com.company.project.base.common.entity;
 
 import io.swagger.annotations.ApiModelProperty;
 

@@ -1,7 +1,8 @@
-package com.company.project.base.common;
+package com.company.project.base.common.entity;
 
 import lombok.Data;
 
+import javax.validation.Valid;
 import java.util.Map;
 
 /**
@@ -14,6 +15,7 @@ public class Request<T> {
     /**
      * 请求体
      */
+    @Valid
     private T body;
 
     /**

@@ -1,6 +1,6 @@
 package com.company.project.producerservice.pojo.query;
 
-import com.company.project.base.common.AbstractPage;
+import com.company.project.base.common.entity.AbstractPage;
 
 /**
  * @author: laoliangliang

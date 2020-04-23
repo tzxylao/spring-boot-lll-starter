@@ -1,6 +1,6 @@
 package com.company.project.base.exeception;
 
-import com.company.project.base.common.Result;
+import com.company.project.base.common.entity.Result;
 import com.company.project.base.common.ToolUtil;
 import com.netflix.hystrix.exception.HystrixRuntimeException;
 import feign.FeignException;
@@ -35,7 +35,7 @@ public class SystemExceptionHandler {
     public Result methodArgumentNotValidExceptionHandler(HttpServletRequest request, MethodArgumentNotValidException e) {
         BindingResult bindingResult = e.getBindingResult();
         StringBuilder errMsg = new StringBuilder(bindingResult.getFieldErrors().size() * 16);
-        errMsg.append("Invalid request:");
+        errMsg.append("错误请求:");
         for (int i = 0; i < bindingResult.getFieldErrors().size(); i++) {
             if (i > 0) {
                 errMsg.append(",");

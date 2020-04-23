@@ -1,10 +1,12 @@
 package com.company.project.producerservice.service;
 
-import com.company.project.base.common.Request;
-import com.company.project.base.common.Result;
-import com.company.project.base.common.ResultListVo;
+import com.company.project.base.common.entity.Request;
+import com.company.project.base.common.entity.Result;
+import com.company.project.base.common.entity.ResultListVo;
+import com.company.project.base.mybatis.Service;
 import com.company.project.producerservice.pojo.add.ExampleAddVo;
 import com.company.project.producerservice.pojo.delete.ExampleDeleteVo;
+import com.company.project.producerservice.pojo.entity.Example;
 import com.company.project.producerservice.pojo.query.ExampleDetailVo;
 import com.company.project.producerservice.pojo.query.ExampleQueryVo;
 import com.company.project.producerservice.pojo.result.ExampleDetailResultVo;
@@ -16,7 +18,7 @@ import com.company.project.producerservice.pojo.update.ExampleUpdateVo;
  * @description:
  * @create: 2020/4/20 15:17
  **/
-public interface ExampleService {
+public interface ExampleService extends Service<Example> {
 
     /**
      * 查询XXX订单列表

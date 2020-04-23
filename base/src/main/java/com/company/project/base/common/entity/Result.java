@@ -1,5 +1,6 @@
-package com.company.project.base.common;
+package com.company.project.base.common.entity;
 
+import com.company.project.base.common.BaseStatusCode;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 

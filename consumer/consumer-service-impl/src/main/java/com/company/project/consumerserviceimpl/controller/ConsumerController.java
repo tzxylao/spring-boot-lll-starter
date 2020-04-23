@@ -1,6 +1,6 @@
 package com.company.project.consumerserviceimpl.controller;
 
-import com.company.project.base.common.Result;
+import com.company.project.base.common.entity.Result;
 import com.company.project.consumerservice.pojo.entity.Consumer;
 import com.company.project.consumerservice.service.ConsumerService;
 import io.swagger.annotations.Api;

@@ -1,16 +1,19 @@
-package ${basePackage}.controller;
+package ${rootPackage}.${serivce}.controller;
 
-import com.onegene.base.vo.Result;
-import com.onegene.base.vo.ResultListVo;
-import ${basePackage}.pojo.queryVo.${modelNameUpperCamel}AddVo;
-import ${basePackage}.pojo.queryVo.${modelNameUpperCamel}QueryVo;
-import ${basePackage}.pojo.queryVo.${modelNameUpperCamel}UpdateVo;
-import ${basePackage}.pojo.queryVo.${modelNameUpperCamel}DetailVo;
-import ${basePackage}.pojo.resultVo.${modelNameUpperCamel}DetailResultVo;
-import ${basePackage}.pojo.resultVo.${modelNameUpperCamel}ResultVo;
-import ${basePackage}.service.${modelNameUpperCamel}Service;
+import ${rootPackage}.common.entity.Request;
+import ${rootPackage}.common.entity.Result;
+import ${rootPackage}.common.entity.ResultListVo;
+import ${rootPackage}.${serivce}.pojo.add.${modelNameUpperCamel}AddVo;
+import ${rootPackage}.${serivce}.pojo.query.${modelNameUpperCamel}QueryVo;
+import ${rootPackage}.${serivce}.pojo.update.${modelNameUpperCamel}UpdateVo;
+import ${rootPackage}.${serivce}.pojo.query.${modelNameUpperCamel}DetailVo;
+import ${rootPackage}.${serivce}.pojo.delete.${modelNameUpperCamel}DeleteVo;
+import ${rootPackage}.${serivce}.pojo.result.${modelNameUpperCamel}DetailResultVo;
+import ${rootPackage}.${serivce}.pojo.result.${modelNameUpperCamel}ResultVo;
+import ${rootPackage}.${serivce}.service.${modelNameUpperCamel}Service;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,26 +35,31 @@ public class ${modelNameUpperCamel}Controller {
 
     @ApiOperation("查询${tableComment}列表")
     @PostMapping("/list")
-    public Result<ResultListVo<${modelNameUpperCamel}ResultVo>> get${modelNameUpperCamel}List(@RequestBody ${modelNameUpperCamel}QueryVo ${modelNameLowerCamel}QueryVo) {
-        return ${modelNameLowerCamel}Service.get${modelNameUpperCamel}List(${modelNameLowerCamel}QueryVo);
+    public Result<ResultListVo<${modelNameUpperCamel}ResultVo>> get${modelNameUpperCamel}List(@Validated @RequestBody Request<ExampleQueryVo> request) {
+        return ${modelNameLowerCamel}Service.get${modelNameUpperCamel}List(request);
     }
 
     @ApiOperation("查询${tableComment}单项")
     @PostMapping("/detail")
-    public Result<${modelNameUpperCamel}DetailResultVo> get${modelNameUpperCamel}(@RequestBody ${modelNameUpperCamel}DetailVo ${modelNameLowerCamel}DetailVo) {
-        return ${modelNameLowerCamel}Service.get${modelNameUpperCamel}(${modelNameLowerCamel}DetailVo);
+    public Result<${modelNameUpperCamel}DetailResultVo> get${modelNameUpperCamel}(@Validated @RequestBody Request<ExampleDetailVo> request) {
+        return ${modelNameLowerCamel}Service.get${modelNameUpperCamel}(request);
     }
 
     @ApiOperation("添加${tableComment}")
     @PostMapping("/add")
-    public Result add${modelNameUpperCamel}(@RequestBody ${modelNameUpperCamel}AddVo ${modelNameLowerCamel}AddVo) {
-        return ${modelNameLowerCamel}Service.add${modelNameUpperCamel}(${modelNameLowerCamel}AddVo);
+    public Result add${modelNameUpperCamel}(@Validated @RequestBody Request<ExampleAddVo> unlockOrderAddVo) {
+        return ${modelNameLowerCamel}Service.add${modelNameUpperCamel}(request);
     }
 
     @ApiOperation("更新${tableComment}")
     @PostMapping("/update")
-    public Result update${modelNameUpperCamel}(@RequestBody ${modelNameUpperCamel}UpdateVo ${modelNameLowerCamel}UpdateVo) {
-        return ${modelNameLowerCamel}Service.update${modelNameUpperCamel}(${modelNameLowerCamel}UpdateVo);
+    public Result update${modelNameUpperCamel}(@Validated @RequestBody Request<ExampleUpdateVo> unlockOrderUpdateVo) {
+        return ${modelNameLowerCamel}Service.update${modelNameUpperCamel}(request);
     }
 
+    @ApiOperation("删除${tableComment}")
+    @PostMapping("/delete")
+    public Result deleteExample(@Validated @RequestBody Request<ExampleDeleteVo> unlockOrderDeleteVo) {
+        return exampleService.deleteExample(request);
+    }
 }

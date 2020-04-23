@@ -53,7 +53,7 @@ public class CodeGenerator {
 
     public static void main(String[] args) {
         String property = System.getProperty("user.dir");
-//        genCode("unlock_order");
+        genCode("unlock_order");
 //        genCodeByCustomModelName("输入表名","输入自定义Model名称");
     }
 
@@ -100,6 +100,7 @@ public class CodeGenerator {
         genService(tableName, modelName, javaBean);
         genController(tableName, modelName, javaBean);
         genQueryAndAddVo(tableName, modelName, javaBean);
+        genDeleteVo(tableName, modelName, javaBean);
         genResultVo(tableName, modelName, javaBean);
     }
 
@@ -192,7 +193,7 @@ public class CodeGenerator {
             if (!file.getParentFile().exists()) {
                 file.getParentFile().mkdirs();
             }
-            cfg.getTemplate("queryVo.ftl").process(data,
+            cfg.getTemplate("query.ftl").process(data,
                     new FileWriter(file));
             System.out.println(modelNameUpperCamel + suffixQuery + ".java 生成成功");
 
@@ -218,6 +219,39 @@ public class CodeGenerator {
             }
         } catch (Exception e) {
             throw new RuntimeException("生成query，update和add失败", e);
+        }
+    }
+
+    private static void genDeleteVo(String tableName, String modelName, JavaBean javaBean) {
+        String suffixDelete = "DeleteVo";
+        try {
+            freemarker.template.Configuration cfg = getConfiguration();
+
+            Map<String, Object> data = new HashMap<>();
+            data.put("date", DATE);
+            data.put("author", AUTHOR);
+            String modelNameUpperCamel = StringUtils.isEmpty(modelName) ? tableNameConvertUpperCamel(tableName) : modelName;
+            data.put("coreExtend", CORE_EXTENDS);
+            data.put("modelNameUpperCamel", modelNameUpperCamel);
+            data.put("modelNameLowerCamel", tableNameConvertLowerCamel(tableName));
+            data.put("basePackage", QUERY_VO_PACKAGE);
+            data.put("suffixDelete", suffixDelete);
+            data.put("tableComment", javaBean.getTableComment());
+            data.put("fields", javaBean.getFields());
+            data.put("hasDate", javaBean.getHasDate());
+            data.put("javaBean", javaBean);
+
+            File file = new File(PROJECT_PATH_SERVICE + JAVA_PATH + PACKAGE_PATH_QUERY_VO + modelNameUpperCamel + suffixDelete + ".java");
+            if (!file.getParentFile().exists()) {
+                file.getParentFile().mkdirs();
+            }
+            if (!file.exists() || overwrite) {
+                cfg.getTemplate("deleteVo.ftl").process(data,
+                        new FileWriter(file));
+                System.out.println(modelNameUpperCamel + suffixDelete + ".java 生成成功");
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("生成delete失败", e);
         }
     }
 
@@ -340,6 +374,9 @@ public class CodeGenerator {
             data.put("modelNameUpperCamel", modelNameUpperCamel);
             data.put("modelNameLowerCamel", tableNameConvertLowerCamel(tableName));
             data.put("basePackage", BASE_PACKAGE);
+            data.put("rootPackage", ROOT_PACKAGE);
+            data.put("service", SERVICE);
+            data.put("serviceImpl", SERVICE_IMPL);
             data.put("tableComment", javaBean.getTableComment());
             data.put("fields", javaBean.getFields());
             data.put("hasDate", javaBean.getHasDate());
@@ -380,6 +417,9 @@ public class CodeGenerator {
             data.put("modelNameUpperCamel", modelNameUpperCamel);
             data.put("modelNameLowerCamel", CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_CAMEL, modelNameUpperCamel));
             data.put("basePackage", BASE_PACKAGE);
+            data.put("rootPackage", ROOT_PACKAGE);
+            data.put("service", SERVICE);
+            data.put("serviceImpl", SERVICE_IMPL);
             data.put("tableComment", javaBean.getTableComment());
             data.put("fields", javaBean.getFields());
             data.put("hasDate", javaBean.getHasDate());

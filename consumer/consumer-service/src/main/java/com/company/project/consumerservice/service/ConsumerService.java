@@ -1,6 +1,6 @@
 package com.company.project.consumerservice.service;
 
-import com.company.project.base.common.Result;
+import com.company.project.base.common.entity.Result;
 import com.company.project.base.exeception.ExceptionProcessor;
 import com.company.project.consumerservice.pojo.entity.Consumer;
 import feign.hystrix.FallbackFactory;

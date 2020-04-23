@@ -1,6 +1,6 @@
 package com.company.project.consumerserviceimpl.service;
 
-import com.company.project.base.common.Result;
+import com.company.project.base.common.entity.Result;
 import com.company.project.base.mybatis.AbstractService;
 import com.company.project.consumerservice.pojo.entity.Consumer;
 import com.company.project.consumerservice.service.ConsumerService;

@@ -1,6 +1,6 @@
 package com.company.project.base.exeception;
 
-import com.company.project.base.common.Result;
+import com.company.project.base.common.entity.Result;
 import com.netflix.hystrix.exception.HystrixBadRequestException;
 
 /**

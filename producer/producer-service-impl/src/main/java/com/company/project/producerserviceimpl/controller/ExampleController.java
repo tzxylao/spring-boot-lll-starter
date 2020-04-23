@@ -1,8 +1,8 @@
 package com.company.project.producerserviceimpl.controller;
 
-import com.company.project.base.common.Request;
-import com.company.project.base.common.Result;
-import com.company.project.base.common.ResultListVo;
+import com.company.project.base.common.entity.Request;
+import com.company.project.base.common.entity.Result;
+import com.company.project.base.common.entity.ResultListVo;
 import com.company.project.producerservice.pojo.add.ExampleAddVo;
 import com.company.project.producerservice.pojo.delete.ExampleDeleteVo;
 import com.company.project.producerservice.pojo.query.ExampleDetailVo;

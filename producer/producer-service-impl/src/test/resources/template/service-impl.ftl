@@ -1,23 +1,25 @@
-package ${basePackage}.service.impl;
+package ${rootPackage}.${serivceImpl}.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import ${basePackage}.mapper.${modelNameUpperCamel}Mapper;
-import ${basePackage}.pojo.entity.${modelNameUpperCamel};
-import ${basePackage}.service.${modelNameUpperCamel}Service;
-import ${basePackage}.pojo.queryVo.${modelNameUpperCamel}QueryVo;
-import ${basePackage}.pojo.queryVo.${modelNameUpperCamel}AddVo;
-import ${basePackage}.pojo.queryVo.${modelNameUpperCamel}UpdateVo;
-import ${basePackage}.pojo.queryVo.${modelNameUpperCamel}DetailVo;
-import ${basePackage}.pojo.resultVo.${modelNameUpperCamel}DetailResultVo;
-import ${basePackage}.pojo.resultVo.${modelNameUpperCamel}ResultVo;
-import ${coreExtend}.AbstractService;
+import ${rootPackage}.${serivceImpl}.mapper.${modelNameUpperCamel}Mapper;
+import ${rootPackage}.${serivce}.pojo.entity.${modelNameUpperCamel};
+import ${rootPackage}.${serivceImpl}.service.${modelNameUpperCamel}Service;
+import ${rootPackage}.${serivce}.pojo.query.${modelNameUpperCamel}QueryVo;
+import ${rootPackage}.${serivce}.pojo.add.${modelNameUpperCamel}AddVo;
+import ${rootPackage}.${serivce}.pojo.update.${modelNameUpperCamel}UpdateVo;
+import ${rootPackage}.${serivce}.pojo.query.${modelNameUpperCamel}DetailVo;
+import ${rootPackage}.${serivce}.pojo.delete.${modelNameUpperCamel}DeleteVo;
+import ${rootPackage}.${serivce}.pojo.result.${modelNameUpperCamel}DetailResultVo;
+import ${rootPackage}.${serivce}.pojo.result.${modelNameUpperCamel}ResultVo;
+import ${rootPackage}.base.mybatis.AbstractService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.onegene.base.vo.ResultListVo;
 import javax.annotation.Resource;
-import com.onegene.base.vo.Result;
+import ${rootPackage}.common.entity.Request;
+import ${rootPackage}.common.entity.Result;
+import ${rootPackage}.common.entity.ResultListVo;
 
 
 /**
@@ -30,7 +32,8 @@ import com.onegene.base.vo.Result;
 public class ${modelNameUpperCamel}ServiceImpl extends AbstractService<${modelNameUpperCamel}> implements ${modelNameUpperCamel}Service {
 
     @Override
-    public Result<ResultListVo<${modelNameUpperCamel}ResultVo>> get${modelNameUpperCamel}List(${modelNameUpperCamel}QueryVo ${modelNameLowerCamel}QueryVo) {
+    public Result<ResultListVo<${modelNameUpperCamel}ResultVo>> get${modelNameUpperCamel}List(Request<${modelNameUpperCamel}QueryVo> request) {
+        ${modelNameUpperCamel}QueryVo ${modelNameLowerCamel}QueryVo = request.getBody();
         Page<Object> page = PageHelper.startPage(${modelNameLowerCamel}QueryVo.getPage(), ${modelNameLowerCamel}QueryVo.getPageSize());
         //       List<${modelNameUpperCamel}ResultVo> resultVos = ((${modelNameUpperCamel}Mapper)this.mapper).select${modelNameUpperCamel}List(${modelNameLowerCamel}QueryVo);
         //       return Result.ok(new ResultListVo<${modelNameUpperCamel}ResultVo>().setList(resultVos).setTotal(page.getTotal()));
@@ -38,14 +41,17 @@ public class ${modelNameUpperCamel}ServiceImpl extends AbstractService<${modelNa
     }
 
     @Override
-    public Result<${modelNameUpperCamel}DetailResultVo> get${modelNameUpperCamel}(${modelNameUpperCamel}DetailVo ${modelNameLowerCamel}DetailVo) {
+    public Result<${modelNameUpperCamel}DetailResultVo> get${modelNameUpperCamel}(Request<${modelNameUpperCamel}DetailVo> request) {
+        ${modelNameUpperCamel}DetailVo ${modelNameLowerCamel}DetailVo = request.getBody();
         // ${modelNameUpperCamel}DetailResultVo ${modelNameLowerCamel}DetailResultVo = ((${modelNameUpperCamel}Mapper) this.mapper).select${modelNameUpperCamel}(${modelNameLowerCamel}DetailVo);
+        // Precondition.checkNotNull(${modelNameLowerCamel}DetailResultVo, "${tableComment}不存在");
         // return Result.ok(${modelNameLowerCamel}DetailResultVo);
         return Result.ok();
     }
 
     @Override
-    public Result add${modelNameUpperCamel}(${modelNameUpperCamel}AddVo ${modelNameLowerCamel}AddVo) {
+    public Result add${modelNameUpperCamel}(Request<${modelNameUpperCamel}AddVo> request) {
+        ${modelNameUpperCamel}AddVo ${modelNameLowerCamel}AddVo = request.getBody();
         ${modelNameUpperCamel} ${modelNameLowerCamel} = new ${modelNameUpperCamel}();
         BeanUtil.copyProperties(${modelNameLowerCamel}AddVo, ${modelNameLowerCamel});
         this.mapper.insertSelective(${modelNameLowerCamel});
@@ -53,10 +59,20 @@ public class ${modelNameUpperCamel}ServiceImpl extends AbstractService<${modelNa
     }
 
     @Override
-    public Result update${modelNameUpperCamel}(${modelNameUpperCamel}UpdateVo ${modelNameLowerCamel}UpdateVo) {
+    public Result update${modelNameUpperCamel}(Request<${modelNameUpperCamel}UpdateVo> request) {
+        ${modelNameUpperCamel}UpdateVo ${modelNameLowerCamel}UpdateVo = request.getBody();
         ${modelNameUpperCamel} ${modelNameLowerCamel} = new ${modelNameUpperCamel}();
         BeanUtil.copyProperties(${modelNameLowerCamel}UpdateVo, ${modelNameLowerCamel});
         this.mapper.updateByPrimaryKeySelective(${modelNameLowerCamel});
+        return Result.ok();
+    }
+
+    @Override
+    public Result delete${modelNameUpperCamel}(Request<${modelNameUpperCamel}DeleteVo> request) {
+        ${modelNameUpperCamel}DeleteVo ${modelNameLowerCamel}DeleteVo = request.getBody();
+        ${modelNameUpperCamel} example = new ${modelNameUpperCamel}();
+        BeanUtil.copyProperties(exampleDeleteVo, example);
+        this.mapper.updateByPrimaryKeySelective(example);
         return Result.ok();
     }
 

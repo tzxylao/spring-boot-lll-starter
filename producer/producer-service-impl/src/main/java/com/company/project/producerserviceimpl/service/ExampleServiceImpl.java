@@ -1,9 +1,9 @@
 package com.company.project.producerserviceimpl.service;
 
 import cn.hutool.core.bean.BeanUtil;
-import com.company.project.base.common.Request;
-import com.company.project.base.common.Result;
-import com.company.project.base.common.ResultListVo;
+import com.company.project.base.common.entity.Request;
+import com.company.project.base.common.entity.Result;
+import com.company.project.base.common.entity.ResultListVo;
 import com.company.project.base.mybatis.AbstractService;
 import com.company.project.producerservice.pojo.add.ExampleAddVo;
 import com.company.project.producerservice.pojo.delete.ExampleDeleteVo;
@@ -18,6 +18,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -67,11 +68,11 @@ public class ExampleServiceImpl extends AbstractService<Example> implements Exam
     }
 
     @Override
-    public Result deleteExample(Request<ExampleDeleteVo> unlockOrderDeleteVo) {
+    public Result deleteExample(@Validated Request<ExampleDeleteVo> unlockOrderDeleteVo) {
         ExampleDeleteVo exampleDeleteVo = unlockOrderDeleteVo.getBody();
         Example example = new Example();
         BeanUtil.copyProperties(exampleDeleteVo, example);
-
+        this.mapper.updateByPrimaryKeySelective(example);
         return Result.ok();
     }
 }

@@ -21,8 +21,8 @@ import java.util.Date;
  * @create: ${date}
  **/
 @Data
-@ApiModel(value = "${tableComment}更新参数")
-public class ${modelNameUpperCamel}${suffixUpdate} {
+@ApiModel(value = "${tableComment}添加参数")
+public class ${modelNameUpperCamel}${suffixDelete} {
 
 <#list fields as field>
     @ApiModelProperty(value = "${field.columnComment}", name = "${field.columnName}")
