@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.project.producerserviceimpl.mapper.OrderMapper">
+  <resultMap id="BaseResultMap" type="com.company.project.producerservice.pojo.entity.Order">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="invalid_state" jdbcType="INTEGER" property="invalidState" />
+    <result column="activity_id" jdbcType="BIGINT" property="activityId" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="good_id" jdbcType="BIGINT" property="goodId" />
+    <result column="good_num" jdbcType="INTEGER" property="goodNum" />
+    <result column="unit_price" jdbcType="DECIMAL" property="unitPrice" />
+    <result column="toatl_price" jdbcType="DECIMAL" property="toatlPrice" />
+    <result column="real_pay" jdbcType="DECIMAL" property="realPay" />
+    <result column="trade_no" jdbcType="VARCHAR" property="tradeNo" />
+    <result column="pay_type" jdbcType="INTEGER" property="payType" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="created" jdbcType="TIMESTAMP" property="created" />
+    <result column="modifier" jdbcType="VARCHAR" property="modifier" />
+    <result column="modified" jdbcType="TIMESTAMP" property="modified" />
+    <result column="sku_code" jdbcType="VARCHAR" property="skuCode" />
+    <result column="be_show" jdbcType="INTEGER" property="beShow" />
+  </resultMap>
+</mapper>

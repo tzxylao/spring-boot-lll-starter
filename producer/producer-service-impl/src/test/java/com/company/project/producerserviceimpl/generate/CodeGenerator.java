@@ -52,6 +52,7 @@ public class CodeGenerator {
 
     /**
      * 将数据库表取别名后生成实体类
+     *
      * @param tableName
      * @param modelName
      */
@@ -128,8 +129,9 @@ public class CodeGenerator {
         /**
          * 配置该项通常用在重新生成实体类
          */
-        private List<ModelEnum> model = Arrays.asList(ModelEnum.ADD, ModelEnum.QUERY, ModelEnum.UPDATE, ModelEnum.RESULT
-                , ModelEnum.BASE,ModelEnum.MAPPER, ModelEnum.CONTROLLER, ModelEnum.DETAIL, ModelEnum.DETAIL_RESULT, ModelEnum.SERVICE, ModelEnum.DELETE);
+        private List<ModelEnum> model = Arrays.asList(ModelEnum.ADD, ModelEnum.QUERY, ModelEnum.UPDATE, ModelEnum.RESULT,
+                ModelEnum.BASE, ModelEnum.MAPPER, ModelEnum.CONTROLLER, ModelEnum.DETAIL, ModelEnum.DETAIL_RESULT,
+                ModelEnum.SERVICE, ModelEnum.SERVICE_IMP, ModelEnum.DELETE);
 
         public GenCondition(String tableName) {
             this.tableName = tableName;

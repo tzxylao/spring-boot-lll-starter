@@ -9,6 +9,7 @@ Spring Boot lll starter项目是个基于企业级实战抽象脱胎出来的，
 - 常用基础方法抽象封装
 - 使用jackson进行序列表配置
 - 集成tkMyBatis、通用Mapper插件、PageHelper分页插件，实现单表业务零SQL
+- swagger2开发文档集成，启动后访问`localhost:8081/swagger-ui.html`
 
 ## 快速开发
 ### 第一步
@@ -23,7 +24,14 @@ Spring Boot lll starter项目是个基于企业级实战抽象脱胎出来的，
 ### 第二步
 自动生成代码工具在producer-service-impl的test包中，对自动代码生成工具的`ModifiedConstant`类进行修改，`ExecuteGenerate`该类负责自动生成框架
 
-
+## 技术选型
+1.SpringCloud Alibaba
+2.tkMybatis+MyBatis PageHelper分页插件
+3.Druid Spring Boot Starter
+4.Nocos配置及注册中心
+5.hutool工具集
+6.lombok
+7.其它技术，如Redis，ElasticSearch等请随业务需要自行添加
 
 ## 说明
 1.你会看到我的自动生成代码显得比较复杂，有那么多查询返回的自定义类，业务初期你可能一个简单的单表查询就能解决所有字段的查询，
