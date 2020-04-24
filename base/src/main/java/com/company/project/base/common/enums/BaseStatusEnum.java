@@ -1,11 +1,11 @@
-package com.company.project.base.common;
+package com.company.project.base.common.enums;
 
 /**
  * @author: laoliangliang
  * @description:
  * @create: 2020/4/21 15:49
  **/
-public enum BaseStatusCode {
+public enum BaseStatusEnum {
     /**
      * 操作码和消息
      */
@@ -21,7 +21,7 @@ public enum BaseStatusCode {
     private Integer code;
     private String msg;
 
-    BaseStatusCode(Integer code, String msg) {
+    BaseStatusEnum(Integer code, String msg) {
         this.code = code;
         this.msg = msg;
     }

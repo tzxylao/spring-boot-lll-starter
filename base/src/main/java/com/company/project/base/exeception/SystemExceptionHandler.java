@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 
-import static com.company.project.base.common.BaseStatusCode.*;
+import static com.company.project.base.common.enums.BaseStatusEnum.*;
 
 /**
  * @author laoliangliang

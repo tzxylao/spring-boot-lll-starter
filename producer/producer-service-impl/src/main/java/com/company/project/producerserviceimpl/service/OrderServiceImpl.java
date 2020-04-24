@@ -14,6 +14,7 @@ import com.company.project.producerservice.pojo.result.OrderDetailResultVo;
 import com.company.project.producerservice.pojo.result.OrderResultVo;
 import com.company.project.producerservice.pojo.update.OrderUpdateVo;
 import com.company.project.producerservice.service.OrderService;
+import com.company.project.producerserviceimpl.business.BusinessEnum;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;
@@ -45,7 +46,8 @@ public class OrderServiceImpl extends AbstractService<Order> implements OrderSer
             BeanUtil.copyProperties(o, orderResultVo);
             resultVos.add(orderResultVo);
         }
-        return Result.ok(new ResultListVo<OrderResultVo>().setList(resultVos).setTotal(page.getTotal()));
+        return Result.ok(new ResultListVo<OrderResultVo>().setList(resultVos).setTotal(page.getTotal()))
+                .addBusinessClass(Result.wrap(BusinessEnum.A001.getClazz()));
     }
 
     @Override

@@ -1,5 +1,9 @@
 package com.company.project.producerserviceimpl.business.clazz;
 
+import com.company.project.base.business.IBusinessAfter;
+import com.company.project.base.common.entity.Request;
+import com.company.project.base.common.entity.Result;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
@@ -11,14 +15,15 @@ import org.springframework.stereotype.Component;
  **/
 @Component
 @ConfigurationProperties(prefix = "nacos")
-public class Business001 {
+@Data
+public class Business001 implements IBusinessAfter {
 
     /**
      * 简单配置例子
      */
     private String version;
 
-    @Value("user.name")
+    @Value("${user.name}")
     private String name;
 
     public String getVersion() {
@@ -27,5 +32,10 @@ public class Business001 {
 
     public String getName() {
         return name;
+    }
+
+    @Override
+    public void run(Request request, Result result) {
+        System.out.println("神奇的执行方法,version:" + version);
     }
 }

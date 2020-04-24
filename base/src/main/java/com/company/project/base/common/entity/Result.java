@@ -1,6 +1,6 @@
 package com.company.project.base.common.entity;
 
-import com.company.project.base.common.BaseStatusCode;
+import com.company.project.base.common.enums.BaseStatusEnum;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
@@ -21,10 +21,18 @@ public class Result<T> {
      * 执行业务类名
      */
     @JsonIgnore
-    private List<String> businessClass;
+    private List<BusinessWrap> businessClass;
 
-    public Result<T> addBusinessClass(List<String> businessClass) {
-        List<String> businessClassList = this.getBusinessClass();
+    public static BusinessWrap wrap(Class clazz) {
+        return new BusinessWrap(clazz);
+    }
+
+    public static BusinessWrap wrap(Class clazz,String action) {
+        return new BusinessWrap(clazz, action);
+    }
+
+    public Result<T> addBusinessClass(List<BusinessWrap> businessClass) {
+        List<BusinessWrap> businessClassList = this.getBusinessClass();
         if (businessClassList == null) {
             businessClassList = new ArrayList<>();
             this.setBusinessClass(businessClassList);
@@ -33,8 +41,8 @@ public class Result<T> {
         return this;
     }
 
-    public Result<T> addBusinessClass(String businessClass) {
-        List<String> businessClassList = this.getBusinessClass();
+    public Result<T> addBusinessClass(BusinessWrap businessClass) {
+        List<BusinessWrap> businessClassList = this.getBusinessClass();
         if (businessClassList == null) {
             businessClassList = new ArrayList<>();
             this.setBusinessClass(businessClassList);
@@ -55,15 +63,15 @@ public class Result<T> {
         return ok(code, data, null);
     }
 
-    public static <T> Result<T> ok(T data, List<String> businessClass) {
-        return ok(BaseStatusCode.SUCCESS.code(), data, businessClass);
+    public static <T> Result<T> ok(T data, List<BusinessWrap> businessClass) {
+        return ok(BaseStatusEnum.SUCCESS.code(), data, businessClass);
     }
 
-    public static <T> Result<T> ok(Integer code, T data, List<String> businessClass) {
+    public static <T> Result<T> ok(Integer code, T data, List<BusinessWrap> businessClass) {
         return get(true, code, data, businessClass);
     }
 
-    public static <T> Result<T> get(Boolean success, Integer code, T data, List<String> businessClass) {
+    public static <T> Result<T> get(Boolean success, Integer code, T data, List<BusinessWrap> businessClass) {
         Result<T> result = new Result<>();
         result.setSuccess(success);
         result.setCode(code);
@@ -84,11 +92,11 @@ public class Result<T> {
         return failure(code, data, null);
     }
 
-    public static <T> Result<T> failure(T data, List<String> businessClass) {
-        return failure(BaseStatusCode.FAILURE.code(), data, businessClass);
+    public static <T> Result<T> failure(T data, List<BusinessWrap> businessClass) {
+        return failure(BaseStatusEnum.FAILURE.code(), data, businessClass);
     }
 
-    public static <T> Result<T> failure(Integer code, T data, List<String> businessClass) {
+    public static <T> Result<T> failure(Integer code, T data, List<BusinessWrap> businessClass) {
         return get(false, code, data, businessClass);
     }
 

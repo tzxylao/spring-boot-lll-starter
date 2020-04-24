@@ -316,6 +316,9 @@ public class CodeGenerator {
             }
             if (condition.getModel().contains(GenCondition.ModelEnum.ADD)) {
                 file = new File(PROJECT_PATH_SERVICE + JAVA_PATH + PACKAGE_PATH_ADD_VO + modelNameUpperCamel + suffixAdd + ".java");
+                if (!file.getParentFile().exists()) {
+                    file.getParentFile().mkdirs();
+                }
                 if (!file.exists() || condition.getOverwrite()) {
                     cfg.getTemplate("addVo.ftl").process(data,
                             new FileWriter(file));
@@ -324,6 +327,9 @@ public class CodeGenerator {
             }
             if (condition.getModel().contains(GenCondition.ModelEnum.UPDATE)) {
                 file = new File(PROJECT_PATH_SERVICE + JAVA_PATH + PACKAGE_PATH_UPDATE_VO + modelNameUpperCamel + suffixUpdate + ".java");
+                if (!file.getParentFile().exists()) {
+                    file.getParentFile().mkdirs();
+                }
                 if (!file.exists() || condition.getOverwrite()) {
                     cfg.getTemplate("updateVo.ftl").process(data,
                             new FileWriter(file));
@@ -332,6 +338,9 @@ public class CodeGenerator {
             }
             if (condition.getModel().contains(GenCondition.ModelEnum.DETAIL)) {
                 file = new File(PROJECT_PATH_SERVICE + JAVA_PATH + PACKAGE_PATH_QUERY_VO + modelNameUpperCamel + suffixDetail + ".java");
+                if (!file.getParentFile().exists()) {
+                    file.getParentFile().mkdirs();
+                }
                 if (!file.exists() || condition.getOverwrite()) {
                     cfg.getTemplate("detailVo.ftl").process(data,
                             new FileWriter(file));
