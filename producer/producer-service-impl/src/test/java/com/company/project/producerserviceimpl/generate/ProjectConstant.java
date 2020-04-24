@@ -21,7 +21,7 @@ public final class ProjectConstant {
     /**
      * 核心文件所在目录
      */
-    public static final String CORE_EXTENDS = "com.onegene.platform.system.mybatis";
+    public static final String CORE_EXTENDS = ROOT_PACKAGE + ".base.mybatis";
 
     /**
      * 生成的Model所在包
@@ -41,22 +41,25 @@ public final class ProjectConstant {
     /**
      * 生成Query UPDATE ADD参数所在包
      */
-    public static final String QUERY_VO_PACKAGE = BASE_PACKAGE + "service.pojo.queryVo";
+    public static final String QUERY_VO_PACKAGE = BASE_PACKAGE + "service.pojo.query";
+    public static final String UPDATE_VO_PACKAGE = BASE_PACKAGE + "service.pojo.update";
+    public static final String ADD_VO_PACKAGE = BASE_PACKAGE + "service.pojo.add";
+    public static final String DELETE_VO_PACKAGE = BASE_PACKAGE + "service.pojo.delete";
 
     /**
      * 生成返回结果所在包
      */
-    public static final String RESULT_VO_PACKAGE = BASE_PACKAGE + "service.pojo.resultVo";
+    public static final String RESULT_VO_PACKAGE = BASE_PACKAGE + "service.pojo.result";
 
     /**
      * 生成的ServiceImpl所在包
      */
-    public static final String SERVICE_IMPL_PACKAGE = SERVICE_PACKAGE + "serviceimpl.service";
+    public static final String SERVICE_IMPL_PACKAGE = BASE_PACKAGE + "serviceimpl.service";
 
     /**
      * 生成的Controller所在包
      */
-    public static final String CONTROLLER_PACKAGE = BASE_PACKAGE + ".controller";
+    public static final String CONTROLLER_PACKAGE = BASE_PACKAGE + "serviceimpl.controller";
 
     /**
      * Mapper插件基础接口的完全限定名

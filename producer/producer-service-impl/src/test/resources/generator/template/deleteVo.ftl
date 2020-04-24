@@ -1,4 +1,4 @@
-package ${rootPackage}.${serivce};
+package ${rootPackage}.${service}.delete;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

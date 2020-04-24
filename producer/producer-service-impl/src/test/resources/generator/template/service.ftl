@@ -1,17 +1,17 @@
-package ${rootPackage}.${serivce}.service;
+package ${rootPackage}.${service}.service;
 
-import ${rootPackage}.${serivce}.pojo.entity.${modelNameUpperCamel};
-import ${rootPackage}.${serivce}.pojo.query.${modelNameUpperCamel}QueryVo;
-import ${rootPackage}.${serivce}.pojo.add.${modelNameUpperCamel}AddVo;
-import ${rootPackage}.${serivce}.pojo.update.${modelNameUpperCamel}UpdateVo;
-import ${rootPackage}.${serivce}.pojo.query.${modelNameUpperCamel}DetailVo;
-import ${rootPackage}.${serivce}.pojo.delete.${modelNameUpperCamel}DeleteVo;
-import ${rootPackage}.${serivce}.pojo.result.${modelNameUpperCamel}DetailResultVo;
-import ${rootPackage}.${serivce}.pojo.result.${modelNameUpperCamel}ResultVo;
+import ${rootPackage}.${service}.pojo.entity.${modelNameUpperCamel};
+import ${rootPackage}.${service}.pojo.query.${modelNameUpperCamel}QueryVo;
+import ${rootPackage}.${service}.pojo.add.${modelNameUpperCamel}AddVo;
+import ${rootPackage}.${service}.pojo.update.${modelNameUpperCamel}UpdateVo;
+import ${rootPackage}.${service}.pojo.query.${modelNameUpperCamel}DetailVo;
+import ${rootPackage}.${service}.pojo.delete.${modelNameUpperCamel}DeleteVo;
+import ${rootPackage}.${service}.pojo.result.${modelNameUpperCamel}DetailResultVo;
+import ${rootPackage}.${service}.pojo.result.${modelNameUpperCamel}ResultVo;
 import ${rootPackage}.base.mybatis.Service;
-import ${rootPackage}.common.entity.Request;
-import ${rootPackage}.common.entity.Result;
-import ${rootPackage}.common.entity.ResultListVo;
+import ${rootPackage}.base.common.entity.Request;
+import ${rootPackage}.base.common.entity.Result;
+import ${rootPackage}.base.common.entity.ResultListVo;
 
 
 /**

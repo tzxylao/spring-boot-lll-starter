@@ -1,4 +1,4 @@
-package ${rootPackage}.${serivce};
+package ${rootPackage}.${service}.query;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -21,8 +21,8 @@ import java.util.Date;
  * @create: ${date}
  **/
 @Data
-@ApiModel(value = "${tableComment}结果参数")
-public class ${modelNameUpperCamel}${suffixResult} {
+@ApiModel(value = "${tableComment}单项结果参数")
+public class ${modelNameUpperCamel}${suffixDetailResult} {
 
 <#list fields as field>
     @ApiModelProperty(value = "${field.columnComment}", name = "${field.columnName}")

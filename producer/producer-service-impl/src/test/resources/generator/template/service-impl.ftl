@@ -1,25 +1,25 @@
-package ${rootPackage}.${serivceImpl}.service.impl;
+package ${rootPackage}.${serviceImpl}.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import ${rootPackage}.${serivceImpl}.mapper.${modelNameUpperCamel}Mapper;
-import ${rootPackage}.${serivce}.pojo.entity.${modelNameUpperCamel};
-import ${rootPackage}.${serivceImpl}.service.${modelNameUpperCamel}Service;
-import ${rootPackage}.${serivce}.pojo.query.${modelNameUpperCamel}QueryVo;
-import ${rootPackage}.${serivce}.pojo.add.${modelNameUpperCamel}AddVo;
-import ${rootPackage}.${serivce}.pojo.update.${modelNameUpperCamel}UpdateVo;
-import ${rootPackage}.${serivce}.pojo.query.${modelNameUpperCamel}DetailVo;
-import ${rootPackage}.${serivce}.pojo.delete.${modelNameUpperCamel}DeleteVo;
-import ${rootPackage}.${serivce}.pojo.result.${modelNameUpperCamel}DetailResultVo;
-import ${rootPackage}.${serivce}.pojo.result.${modelNameUpperCamel}ResultVo;
+import ${rootPackage}.${serviceImpl}.mapper.${modelNameUpperCamel}Mapper;
+import ${rootPackage}.${service}.pojo.entity.${modelNameUpperCamel};
+import ${rootPackage}.${serviceImpl}.service.${modelNameUpperCamel}Service;
+import ${rootPackage}.${service}.pojo.query.${modelNameUpperCamel}QueryVo;
+import ${rootPackage}.${service}.pojo.add.${modelNameUpperCamel}AddVo;
+import ${rootPackage}.${service}.pojo.update.${modelNameUpperCamel}UpdateVo;
+import ${rootPackage}.${service}.pojo.query.${modelNameUpperCamel}DetailVo;
+import ${rootPackage}.${service}.pojo.delete.${modelNameUpperCamel}DeleteVo;
+import ${rootPackage}.${service}.pojo.result.${modelNameUpperCamel}DetailResultVo;
+import ${rootPackage}.${service}.pojo.result.${modelNameUpperCamel}ResultVo;
 import ${rootPackage}.base.mybatis.AbstractService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
-import ${rootPackage}.common.entity.Request;
-import ${rootPackage}.common.entity.Result;
-import ${rootPackage}.common.entity.ResultListVo;
+import ${rootPackage}.base.common.entity.Request;
+import ${rootPackage}.base.common.entity.Result;
+import ${rootPackage}.base.common.entity.ResultListVo;
 
 
 /**

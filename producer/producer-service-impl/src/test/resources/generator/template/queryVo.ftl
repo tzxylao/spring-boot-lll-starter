@@ -1,9 +1,9 @@
-package ${rootPackage}.${serivce};
+package ${rootPackage}.${service}.query;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import com.onegene.base.bean.AbstractPage;
+import ${rootPackage}.base.common.entity.AbstractPage;
 <#if javaBean.hasBigDecimal??>
     <#if javaBean.hasBigDecimal == 1>
 import java.math.BigDecimal;

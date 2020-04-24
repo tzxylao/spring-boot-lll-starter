@@ -29,7 +29,7 @@ public class CodeGenerator {
 
     private static final String PROJECT_PATH_SERVICE_IMPL = System.getProperty("user.dir") + "/" + PROJECT_SERVICE_IMPL;//项目在硬盘上的基础路径
     private static final String PROJECT_PATH_SERVICE = System.getProperty("user.dir") + "/" + PROJECT_SERVICE;//项目在硬盘上的基础路径
-    private static final String TEMPLATE_FILE_PATH = PROJECT_PATH_SERVICE_IMPL + PROJECT_SERVICE_IMPL + "/src/test/resources/generator/template";//模板位置
+    private static final String TEMPLATE_FILE_PATH = PROJECT_PATH_SERVICE_IMPL + "/src/test/resources/generator/template";//模板位置
 
     private static final String JAVA_PATH = "/src/main/java"; //java文件路径
     private static final String RESOURCES_PATH = "/src/main/resources";//资源文件路径
@@ -38,6 +38,9 @@ public class CodeGenerator {
     private static final String PACKAGE_PATH_SERVICE_IMPL = packageConvertPath(SERVICE_IMPL_PACKAGE);//生成的Service实现存放路径
     private static final String PACKAGE_PATH_CONTROLLER = packageConvertPath(CONTROLLER_PACKAGE);//生成的Controller存放路径
     private static final String PACKAGE_PATH_QUERY_VO = packageConvertPath(QUERY_VO_PACKAGE);//生成的queryVo存放路径
+    private static final String PACKAGE_PATH_UPDATE_VO = packageConvertPath(UPDATE_VO_PACKAGE);//生成的queryVo存放路径
+    private static final String PACKAGE_PATH_ADD_VO = packageConvertPath(ADD_VO_PACKAGE);//生成的queryVo存放路径
+    private static final String PACKAGE_PATH_DELETE_VO = packageConvertPath(DELETE_VO_PACKAGE);//生成的queryVo存放路径
     private static final String PACKAGE_PATH_RESULT_VO = packageConvertPath(RESULT_VO_PACKAGE);//生成的resultVo存放路径
 
     private static final String DATE = cn.hutool.core.date.DateUtil.formatDateTime(new Date());//@date
@@ -179,11 +182,14 @@ public class CodeGenerator {
             data.put("coreExtend", CORE_EXTENDS);
             data.put("modelNameUpperCamel", modelNameUpperCamel);
             data.put("modelNameLowerCamel", tableNameConvertLowerCamel(tableName));
-            data.put("basePackage", QUERY_VO_PACKAGE);
+//            data.put("basePackage", QUERY_VO_PACKAGE);
             data.put("suffixQuery", suffixQuery);
             data.put("suffixAdd", suffixAdd);
             data.put("suffixUpdate", suffixUpdate);
             data.put("suffixDetail", suffixDetail);
+            data.put("rootPackage", ROOT_PACKAGE);
+            data.put("service", SERVICE);
+            data.put("serviceImpl", SERVICE_IMPL);
             data.put("tableComment", javaBean.getTableComment());
             data.put("fields", javaBean.getFields());
             data.put("hasDate", javaBean.getHasDate());
@@ -193,18 +199,18 @@ public class CodeGenerator {
             if (!file.getParentFile().exists()) {
                 file.getParentFile().mkdirs();
             }
-            cfg.getTemplate("query.ftl").process(data,
+            cfg.getTemplate("queryVo.ftl").process(data,
                     new FileWriter(file));
             System.out.println(modelNameUpperCamel + suffixQuery + ".java 生成成功");
 
-            file = new File(PROJECT_PATH_SERVICE + JAVA_PATH + PACKAGE_PATH_QUERY_VO + modelNameUpperCamel + suffixAdd + ".java");
+            file = new File(PROJECT_PATH_SERVICE + JAVA_PATH + PACKAGE_PATH_ADD_VO + modelNameUpperCamel + suffixAdd + ".java");
             if (!file.exists() || overwrite) {
                 cfg.getTemplate("addVo.ftl").process(data,
                         new FileWriter(file));
                 System.out.println(modelNameUpperCamel + suffixAdd + ".java 生成成功");
             }
 
-            file = new File(PROJECT_PATH_SERVICE + JAVA_PATH + PACKAGE_PATH_QUERY_VO + modelNameUpperCamel + suffixUpdate + ".java");
+            file = new File(PROJECT_PATH_SERVICE + JAVA_PATH + PACKAGE_PATH_UPDATE_VO + modelNameUpperCamel + suffixUpdate + ".java");
             if (!file.exists() || overwrite) {
                 cfg.getTemplate("updateVo.ftl").process(data,
                         new FileWriter(file));
@@ -241,7 +247,11 @@ public class CodeGenerator {
             data.put("hasDate", javaBean.getHasDate());
             data.put("javaBean", javaBean);
 
-            File file = new File(PROJECT_PATH_SERVICE + JAVA_PATH + PACKAGE_PATH_QUERY_VO + modelNameUpperCamel + suffixDelete + ".java");
+            data.put("rootPackage", ROOT_PACKAGE);
+            data.put("service", SERVICE);
+            data.put("serviceImpl", SERVICE_IMPL);
+
+            File file = new File(PROJECT_PATH_SERVICE + JAVA_PATH + PACKAGE_PATH_DELETE_VO + modelNameUpperCamel + suffixDelete + ".java");
             if (!file.getParentFile().exists()) {
                 file.getParentFile().mkdirs();
             }
@@ -275,6 +285,9 @@ public class CodeGenerator {
             data.put("fields", javaBean.getFields());
             data.put("hasDate", javaBean.getHasDate());
             data.put("javaBean", javaBean);
+            data.put("rootPackage", ROOT_PACKAGE);
+            data.put("service", SERVICE);
+            data.put("serviceImpl", SERVICE_IMPL);
 
             File file = new File(PROJECT_PATH_SERVICE + JAVA_PATH + PACKAGE_PATH_RESULT_VO + modelNameUpperCamel + suffixResult + ".java");
             if (!file.getParentFile().exists()) {
