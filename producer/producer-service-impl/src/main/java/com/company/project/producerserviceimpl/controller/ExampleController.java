@@ -47,20 +47,20 @@ public class ExampleController {
     
     @ApiOperation("添加XXX")
     @PostMapping("/add")
-    public Result addExample(@Validated @RequestBody Request<ExampleAddVo> unlockOrderAddVo) {
-        return exampleService.addExample(unlockOrderAddVo);
+    public Result addExample(@Validated @RequestBody Request<ExampleAddVo> request) {
+        return exampleService.addExample(request);
     }
 
     @ApiOperation("更新XXX")
     @PostMapping("/update")
-    public Result updateExample(@Validated @RequestBody Request<ExampleUpdateVo> unlockOrderUpdateVo) {
-        return exampleService.updateExample(unlockOrderUpdateVo);
+    public Result updateExample(@Validated @RequestBody Request<ExampleUpdateVo> request) {
+        return exampleService.updateExample(request);
     }
 
     @ApiOperation("删除XXX")
     @PostMapping("/delete")
-    public Result deleteExample(@Validated @RequestBody Request<ExampleDeleteVo> unlockOrderDeleteVo) {
-        return exampleService.deleteExample(unlockOrderDeleteVo);
+    public Result deleteExample(@Validated @RequestBody Request<ExampleDeleteVo> request) {
+        return exampleService.deleteExample(request);
     }
 
 }
