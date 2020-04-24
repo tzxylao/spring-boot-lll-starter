@@ -55,7 +55,6 @@ public class CodeGenerator {
     private static final boolean overwrite = true;
 
     public static void main(String[] args) {
-        String property = System.getProperty("user.dir");
         genCode("unlock_order");
 //        genCodeByCustomModelName("输入表名","输入自定义Model名称");
     }
