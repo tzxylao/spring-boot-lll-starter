@@ -1,7 +1,7 @@
 package com.company.project.base.exeception;
 
+import cn.hutool.core.util.ObjectUtil;
 import com.company.project.base.common.entity.Result;
-import com.company.project.base.common.ToolUtil;
 import com.netflix.hystrix.exception.HystrixRuntimeException;
 import feign.FeignException;
 import lombok.extern.slf4j.Slf4j;
@@ -57,21 +57,21 @@ public class SystemExceptionHandler {
     @ResponseBody
     public Result dataExceptionHandler(HttpServletRequest request, DataNullException e) {
         String msg = e.getMessage();
-        return getExceptionResult(e, FAILURE_DATA.code(), ToolUtil.getNotNullValueStr(msg, FAILURE_DATA.msg()), false);
+        return getExceptionResult(e, FAILURE_DATA.code(), ObjectUtil.defaultIfNull(msg, FAILURE_DATA.msg()), false);
     }
 
     @ExceptionHandler(value = {ConditionException.class})
     @ResponseBody
     public Result dataExceptionHandler(HttpServletRequest request, ConditionException e) {
         String msg = e.getMessage();
-        return getExceptionResult(e, FAILURE_CONDITION.code(), ToolUtil.getNotNullValueStr(msg, FAILURE_DATA.msg()), false);
+        return getExceptionResult(e, FAILURE_CONDITION.code(), ObjectUtil.defaultIfNull(msg, FAILURE_DATA.msg()), false);
     }
 
     @ExceptionHandler(value = NotExistException.class)
     @ResponseBody
     public Result notExistExceptionHandler(HttpServletRequest request, NotExistException e) {
         String msg = e.getMessage();
-        return getExceptionResult(e, FAILURE_NOT_EXIST.code(), ToolUtil.getNotNullValueStr(msg, FAILURE_DATA.msg()), false);
+        return getExceptionResult(e, FAILURE_NOT_EXIST.code(), ObjectUtil.defaultIfNull(msg, FAILURE_DATA.msg()), false);
     }
 
     @ExceptionHandler(value = {FeignException.class, RuntimeException.class})
@@ -91,7 +91,7 @@ public class SystemExceptionHandler {
     public Result hystrixExceptionHandler(HttpServletRequest request, HystrixRuntimeException e) {
         Throwable fallbackException = e.getFallbackException();
         String msg = fallbackException.getCause().getMessage().split(":")[1];
-        return getExceptionResult(e, FAILURE_HYSTRIX.code(), ToolUtil.getNotNullValueStr(msg, FAILURE_DATA.msg()), true);
+        return getExceptionResult(e, FAILURE_HYSTRIX.code(), ObjectUtil.defaultIfNull(msg, FAILURE_DATA.msg()), true);
     }
 
     private Result getExceptionResult(Exception e, int statusCode, boolean ignoreAlert) {
