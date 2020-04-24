@@ -9,7 +9,7 @@ Spring Boot lll starter项目是个基于企业级实战抽象脱胎出来的，
 
 ## 快速开发
 ### 第一步
-目前封装还不完善，但已经可以基于该项目基础上进行开发，项目目标是适用于管理平台及微服务，目前正在完善管理平台功能,
+项目目标是适用于管理平台及微服务，目前正在完善管理平台功能
 若开发管理平台后台，则可删除`consumer`项目，保留`base`及`producer`，然后请对producer项目进行改名，但请保留基本格式(**否则自动代码生成不生效**)：
 - 项目名
   - 项目名-service
@@ -17,10 +17,10 @@ Spring Boot lll starter项目是个基于企业级实战抽象脱胎出来的，
   - 项目名-service-impl
     - com.公司名.模块名.项目名serviceimpl
 
-同时对自动代码生成工具的`ProjectConstant`类的`ROOT_PACKAGE`和`PROJECT`进行修改
-
 ### 第二步
-修改`CodeGenerator`中的main方法中的参数及数据库配置参数，然后运行`main`方法
+自动生成代码工具在producer-service-impl的test包中，对自动代码生成工具的`ModifiedConstant`类进行修改，`ExecuteGenerate`该类负责自动生成框架
+
+
 
 ## 说明
 1. 你会看到我的自动生成代码显得比较复杂，有那么多查询返回的自定义类，业务初期你可能一个简单的单表查询就能解决所有字段的查询，

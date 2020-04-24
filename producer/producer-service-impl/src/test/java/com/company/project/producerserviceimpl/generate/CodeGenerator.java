@@ -1,8 +1,9 @@
-package com.company.project.producerserviceimpl;
+package com.company.project.producerserviceimpl.generate;
 
 import com.company.project.producerserviceimpl.util.DBUtil;
 import com.google.common.base.CaseFormat;
 import freemarker.template.TemplateExceptionHandler;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
 import org.mybatis.generator.api.MyBatisGenerator;
@@ -14,19 +15,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 
+import static com.company.project.producerserviceimpl.ModifiedConstant.*;
 import static com.company.project.producerserviceimpl.generate.ProjectConstant.*;
 
 /**
  * 代码生成器，根据数据表名称生成对应的pojo、Mapper、Service、Controller、ServiceImpl简化开发。
  */
 public class CodeGenerator {
-    //JDBC配置，请修改为你项目的实际配置
-    public static final String TABLE_SCHEMA = "onegene_infowork";
-    public static final String JDBC_URL = "jdbc:mysql://101.37.146.32:3306/" + TABLE_SCHEMA + "?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8";
-    public static final String JDBC_USERNAME = "geneuser";
-    public static final String JDBC_PASSWORD = "it123456";
-    public static final String JDBC_DIVER_CLASS_NAME = "com.mysql.cj.jdbc.Driver";
-
     private static final String PROJECT_PATH_SERVICE_IMPL = System.getProperty("user.dir") + "/" + PROJECT_SERVICE_IMPL;//项目在硬盘上的基础路径
     private static final String PROJECT_PATH_SERVICE = System.getProperty("user.dir") + "/" + PROJECT_SERVICE;//项目在硬盘上的基础路径
     private static final String TEMPLATE_FILE_PATH = PROJECT_PATH_SERVICE_IMPL + "/src/test/resources/generator/template";//模板位置
@@ -44,19 +39,126 @@ public class CodeGenerator {
     private static final String PACKAGE_PATH_RESULT_VO = packageConvertPath(RESULT_VO_PACKAGE);//生成的resultVo存放路径
 
     private static final String DATE = cn.hutool.core.date.DateUtil.formatDateTime(new Date());//@date
-    /**
-     * 作者
-     */
-    private static final String AUTHOR = "laoliangliang";//@author
+
 
     /**
-     * 是否覆盖
+     * 生成表对应的框架
+     *
+     * @param tableNames
      */
-    private static final boolean overwrite = true;
+    public static void generateByTableNames(String... tableNames) {
+        reGenerateByModelEnum(null, tableNames);
+    }
 
-    public static void main(String[] args) {
-        genCode("unlock_order");
-//        genCodeByCustomModelName("输入表名","输入自定义Model名称");
+    /**
+     * 将数据库表取别名后生成实体类
+     * @param tableName
+     * @param modelName
+     */
+    public static void generateByTableName(String tableName, String modelName) {
+        List<CodeGenerator.GenCondition> genConditions = new ArrayList<>();
+        CodeGenerator.GenCondition genCondition = new CodeGenerator.GenCondition(tableName, modelName);
+        genConditions.add(genCondition);
+        CodeGenerator.genCode(genConditions);
+    }
+
+    /**
+     * 选择部分实体类重新生成
+     *
+     * @param modelEnums 可选实体类枚举
+     * @param tableNames 需要更新的表名
+     */
+    public static void reGenerateByModelEnum(List<CodeGenerator.GenCondition.ModelEnum> modelEnums, String... tableNames) {
+        List<CodeGenerator.GenCondition> genConditions = new ArrayList<>();
+        for (String tableName : tableNames) {
+            CodeGenerator.GenCondition genCondition = new CodeGenerator.GenCondition(tableName, true, modelEnums);
+            genConditions.add(genCondition);
+        }
+        CodeGenerator.genCode(genConditions);
+    }
+
+    /**
+     * 生成条件类
+     */
+    @Data
+    @AllArgsConstructor
+    public static class GenCondition {
+        /**
+         * 在选择性重新生成时可以配置
+         */
+        public enum ModelEnum {
+            /**
+             * add,update,delete,query,detail,detailResult,result实体类
+             */
+            ADD,
+            UPDATE,
+            DELETE,
+            QUERY,
+            DETAIL,
+            DETAIL_RESULT,
+            RESULT,
+            /**
+             * controller层
+             */
+            CONTROLLER,
+            /**
+             * 生成service
+             */
+            SERVICE,
+            /**
+             * 生成serviceimpl
+             */
+            SERVICE_IMP,
+            /**
+             * 基本，表示只生成model和mapper.xml
+             */
+            BASE,
+            /**
+             * 表示生成mapper.java，由于基于BASE，配置该项时必须配置BASE项，且mapper.xml只会生成一次
+             */
+            MAPPER;
+
+        }
+
+        private String tableName;
+        private Boolean overwrite = true;
+        private Boolean noDelete;
+        private String modelName;
+        private JavaBean javaBean = new JavaBean();
+        /**
+         * 配置该项通常用在重新生成实体类
+         */
+        private List<ModelEnum> model = Arrays.asList(ModelEnum.ADD, ModelEnum.QUERY, ModelEnum.UPDATE, ModelEnum.RESULT
+                , ModelEnum.BASE,ModelEnum.MAPPER, ModelEnum.CONTROLLER, ModelEnum.DETAIL, ModelEnum.DETAIL_RESULT, ModelEnum.SERVICE, ModelEnum.DELETE);
+
+        public GenCondition(String tableName) {
+            this.tableName = tableName;
+        }
+
+        public GenCondition(String tableName, Boolean overwrite) {
+            this.tableName = tableName;
+            this.overwrite = overwrite;
+        }
+
+        public GenCondition(String tableName, String modelName) {
+            this.tableName = tableName;
+            this.modelName = modelName;
+        }
+
+        public GenCondition(String tableName, Boolean overwrite, List<ModelEnum> model) {
+            this.tableName = tableName;
+            this.overwrite = overwrite;
+            this.model = model;
+        }
+
+        public GenCondition(String tableName, Boolean overwrite, Boolean noDelete) {
+            this.tableName = tableName;
+            this.overwrite = overwrite;
+            this.noDelete = noDelete;
+            if (noDelete) {
+                model.remove(ModelEnum.DELETE);
+            }
+        }
     }
 
     /**
@@ -65,9 +167,9 @@ public class CodeGenerator {
      *
      * @param tableNames 数据表名称...
      */
-    public static void genCode(String... tableNames) {
-        for (String tableName : tableNames) {
-            genCodeByCustomModelName(tableName, null);
+    public static void genCode(List<GenCondition> tableNames) {
+        for (GenCondition condition : tableNames) {
+            genCodeByCustomModelName(condition);
         }
     }
 
@@ -75,8 +177,9 @@ public class CodeGenerator {
     public static class JavaBean {
         private String tableComment;
         private Integer hasDate;
+        private Boolean hasDelete;
         private Integer hasBigDecimal;
-        private List<Field> fields;
+        private List<Field> fields = new ArrayList<>();
 
         @Data
         public static class Field {
@@ -90,23 +193,23 @@ public class CodeGenerator {
      * 通过数据表名称，和自定义的 Model 名称生成代码
      * 如输入表名称 "t_user_detail" 和自定义的 Model 名称 "User" 将生成 User、UserMapper、UserService ...
      *
-     * @param tableName 数据表名称
-     * @param modelName 自定义的 Model 名称
+     * @param condition tableName 数据表名称
+     * @param condition modelName 自定义的 Model 名称
      */
-    public static void genCodeByCustomModelName(String tableName, String modelName) {
-        JavaBean javaBean = new JavaBean();
-        javaBean.setFields(new ArrayList<>());
-        wrapTableComment(tableName, javaBean);
-        wrapTableField(tableName, javaBean);
-        genModelAndMapper(tableName, modelName);
-        genService(tableName, modelName, javaBean);
-        genController(tableName, modelName, javaBean);
-        genQueryAndAddVo(tableName, modelName, javaBean);
-        genDeleteVo(tableName, modelName, javaBean);
-        genResultVo(tableName, modelName, javaBean);
+    private static void genCodeByCustomModelName(GenCondition condition) {
+        wrapTableComment(condition);
+        wrapTableField(condition);
+        genModelAndMapper(condition);
+        genService(condition);
+        genController(condition);
+        genQueryAndAddVo(condition);
+        genDeleteVo(condition);
+        genResultVo(condition);
     }
 
-    private static void wrapTableField(String tableName, JavaBean javaBean) {
+    private static void wrapTableField(GenCondition condition) {
+        String tableName = condition.getTableName();
+        JavaBean javaBean = condition.getJavaBean();
         DBUtil.getTableFiled("select COLUMN_NAME,COLUMN_COMMENT,DATA_TYPE from information_schema.`COLUMNS`\n" +
                 "where TABLE_SCHEMA='" + TABLE_SCHEMA + "' and TABLE_NAME='" + tableName + "'", resultSet -> {
             while (resultSet.next()) {
@@ -156,7 +259,9 @@ public class CodeGenerator {
         });
     }
 
-    private static void wrapTableComment(String tableName, JavaBean javaBean) {
+    private static void wrapTableComment(GenCondition condition) {
+        String tableName = condition.getTableName();
+        JavaBean javaBean = condition.getJavaBean();
         DBUtil.getTableFiled("select TABLE_COMMENT from information_schema.`TABLES`\n" +
                 "where TABLE_SCHEMA='" + TABLE_SCHEMA + "' and TABLE_NAME='" + tableName + "'", resultSet -> {
             while (resultSet.next()) {
@@ -166,7 +271,10 @@ public class CodeGenerator {
         });
     }
 
-    private static void genQueryAndAddVo(String tableName, String modelName, JavaBean javaBean) {
+    private static void genQueryAndAddVo(GenCondition condition) {
+        String tableName = condition.getTableName();
+        JavaBean javaBean = condition.getJavaBean();
+        String modelName = condition.getModelName();
         String suffixQuery = "QueryVo";
         String suffixAdd = "AddVo";
         String suffixUpdate = "UpdateVo";
@@ -194,40 +302,52 @@ public class CodeGenerator {
             data.put("hasDate", javaBean.getHasDate());
             data.put("javaBean", javaBean);
 
-            File file = new File(PROJECT_PATH_SERVICE + JAVA_PATH + PACKAGE_PATH_QUERY_VO + modelNameUpperCamel + suffixQuery + ".java");
-            if (!file.getParentFile().exists()) {
-                file.getParentFile().mkdirs();
-            }
-            cfg.getTemplate("queryVo.ftl").process(data,
-                    new FileWriter(file));
-            System.out.println(modelNameUpperCamel + suffixQuery + ".java 生成成功");
-
-            file = new File(PROJECT_PATH_SERVICE + JAVA_PATH + PACKAGE_PATH_ADD_VO + modelNameUpperCamel + suffixAdd + ".java");
-            if (!file.exists() || overwrite) {
-                cfg.getTemplate("addVo.ftl").process(data,
+            File file;
+            if (condition.getModel().contains(GenCondition.ModelEnum.QUERY)) {
+                file = new File(PROJECT_PATH_SERVICE + JAVA_PATH + PACKAGE_PATH_QUERY_VO + modelNameUpperCamel + suffixQuery + ".java");
+                if (!file.getParentFile().exists()) {
+                    file.getParentFile().mkdirs();
+                }
+                cfg.getTemplate("queryVo.ftl").process(data,
                         new FileWriter(file));
-                System.out.println(modelNameUpperCamel + suffixAdd + ".java 生成成功");
+                System.out.println(modelNameUpperCamel + suffixQuery + ".java 生成成功");
             }
-
-            file = new File(PROJECT_PATH_SERVICE + JAVA_PATH + PACKAGE_PATH_UPDATE_VO + modelNameUpperCamel + suffixUpdate + ".java");
-            if (!file.exists() || overwrite) {
-                cfg.getTemplate("updateVo.ftl").process(data,
-                        new FileWriter(file));
-                System.out.println(modelNameUpperCamel + suffixUpdate + ".java 生成成功");
+            if (condition.getModel().contains(GenCondition.ModelEnum.ADD)) {
+                file = new File(PROJECT_PATH_SERVICE + JAVA_PATH + PACKAGE_PATH_ADD_VO + modelNameUpperCamel + suffixAdd + ".java");
+                if (!file.exists() || condition.getOverwrite()) {
+                    cfg.getTemplate("addVo.ftl").process(data,
+                            new FileWriter(file));
+                    System.out.println(modelNameUpperCamel + suffixAdd + ".java 生成成功");
+                }
             }
-
-            file = new File(PROJECT_PATH_SERVICE + JAVA_PATH + PACKAGE_PATH_QUERY_VO + modelNameUpperCamel + suffixDetail + ".java");
-            if (!file.exists() || overwrite) {
-                cfg.getTemplate("detailVo.ftl").process(data,
-                        new FileWriter(file));
-                System.out.println(modelNameUpperCamel + suffixDetail + ".java 生成成功");
+            if (condition.getModel().contains(GenCondition.ModelEnum.UPDATE)) {
+                file = new File(PROJECT_PATH_SERVICE + JAVA_PATH + PACKAGE_PATH_UPDATE_VO + modelNameUpperCamel + suffixUpdate + ".java");
+                if (!file.exists() || condition.getOverwrite()) {
+                    cfg.getTemplate("updateVo.ftl").process(data,
+                            new FileWriter(file));
+                    System.out.println(modelNameUpperCamel + suffixUpdate + ".java 生成成功");
+                }
+            }
+            if (condition.getModel().contains(GenCondition.ModelEnum.DETAIL)) {
+                file = new File(PROJECT_PATH_SERVICE + JAVA_PATH + PACKAGE_PATH_QUERY_VO + modelNameUpperCamel + suffixDetail + ".java");
+                if (!file.exists() || condition.getOverwrite()) {
+                    cfg.getTemplate("detailVo.ftl").process(data,
+                            new FileWriter(file));
+                    System.out.println(modelNameUpperCamel + suffixDetail + ".java 生成成功");
+                }
             }
         } catch (Exception e) {
             throw new RuntimeException("生成query，update和add失败", e);
         }
     }
 
-    private static void genDeleteVo(String tableName, String modelName, JavaBean javaBean) {
+    private static void genDeleteVo(GenCondition condition) {
+        if (!condition.getModel().contains(GenCondition.ModelEnum.DELETE)) {
+            return;
+        }
+        String tableName = condition.getTableName();
+        JavaBean javaBean = condition.getJavaBean();
+        String modelName = condition.getModelName();
         String suffixDelete = "DeleteVo";
         try {
             freemarker.template.Configuration cfg = getConfiguration();
@@ -254,7 +374,7 @@ public class CodeGenerator {
             if (!file.getParentFile().exists()) {
                 file.getParentFile().mkdirs();
             }
-            if (!file.exists() || overwrite) {
+            if (!file.exists() || condition.getOverwrite()) {
                 cfg.getTemplate("deleteVo.ftl").process(data,
                         new FileWriter(file));
                 System.out.println(modelNameUpperCamel + suffixDelete + ".java 生成成功");
@@ -264,7 +384,13 @@ public class CodeGenerator {
         }
     }
 
-    private static void genResultVo(String tableName, String modelName, JavaBean javaBean) {
+    private static void genResultVo(GenCondition condition) {
+        if (!condition.getModel().contains(GenCondition.ModelEnum.RESULT)) {
+            return;
+        }
+        String tableName = condition.getTableName();
+        JavaBean javaBean = condition.getJavaBean();
+        String modelName = condition.getModelName();
         String suffixResult = "ResultVo";
         String suffixDetailResult = "DetailResultVo";
         try {
@@ -292,7 +418,7 @@ public class CodeGenerator {
             if (!file.getParentFile().exists()) {
                 file.getParentFile().mkdirs();
             }
-            if (!file.exists() || overwrite) {
+            if (!file.exists() || condition.getOverwrite()) {
                 cfg.getTemplate("ResultVo.ftl").process(data,
                         new FileWriter(file));
                 System.out.println(modelNameUpperCamel + suffixResult + ".java 生成成功");
@@ -308,7 +434,12 @@ public class CodeGenerator {
     }
 
 
-    public static void genModelAndMapper(String tableName, String modelName) {
+    public static void genModelAndMapper(GenCondition condition) {
+        if (!condition.getModel().contains(GenCondition.ModelEnum.BASE)) {
+            return;
+        }
+        String tableName = condition.getTableName();
+        String modelName = condition.getModelName();
         Context context = new Context(ModelType.FLAT);
         context.setId("Potato");
         context.setTargetRuntime("MyBatis3Simple");
@@ -337,11 +468,13 @@ public class CodeGenerator {
         sqlMapGeneratorConfiguration.setTargetPackage("mapper");
         context.setSqlMapGeneratorConfiguration(sqlMapGeneratorConfiguration);
 
-        JavaClientGeneratorConfiguration javaClientGeneratorConfiguration = new JavaClientGeneratorConfiguration();
-        javaClientGeneratorConfiguration.setTargetProject(PROJECT_PATH_SERVICE_IMPL + JAVA_PATH);
-        javaClientGeneratorConfiguration.setTargetPackage(MAPPER_PACKAGE);
-        javaClientGeneratorConfiguration.setConfigurationType("XMLMAPPER");
-        context.setJavaClientGeneratorConfiguration(javaClientGeneratorConfiguration);
+        if (condition.getModel().contains(GenCondition.ModelEnum.MAPPER)) {
+            JavaClientGeneratorConfiguration javaClientGeneratorConfiguration = new JavaClientGeneratorConfiguration();
+            javaClientGeneratorConfiguration.setTargetProject(PROJECT_PATH_SERVICE_IMPL + JAVA_PATH);
+            javaClientGeneratorConfiguration.setTargetPackage(MAPPER_PACKAGE);
+            javaClientGeneratorConfiguration.setConfigurationType("XMLMAPPER");
+            context.setJavaClientGeneratorConfiguration(javaClientGeneratorConfiguration);
+        }
 
         TableConfiguration tableConfiguration = new TableConfiguration(context);
         tableConfiguration.setTableName(tableName);
@@ -357,7 +490,7 @@ public class CodeGenerator {
             config.validate();
 
 
-            DefaultShellCallback callback = new DefaultShellCallback(overwrite);
+            DefaultShellCallback callback = new DefaultShellCallback(condition.getOverwrite());
             warnings = new ArrayList<>();
             generator = new MyBatisGenerator(config, callback, warnings);
             generator.generate(null);
@@ -374,7 +507,10 @@ public class CodeGenerator {
         System.out.println(modelName + "Mapper.xml 生成成功");
     }
 
-    public static void genService(String tableName, String modelName, JavaBean javaBean) {
+    public static void genService(GenCondition condition) {
+        String tableName = condition.getTableName();
+        JavaBean javaBean = condition.getJavaBean();
+        String modelName = condition.getModelName();
         try {
             freemarker.template.Configuration cfg = getConfiguration();
 
@@ -393,23 +529,29 @@ public class CodeGenerator {
             data.put("fields", javaBean.getFields());
             data.put("hasDate", javaBean.getHasDate());
             data.put("javaBean", javaBean);
+            javaBean.setHasDelete(condition.getModel().contains(GenCondition.ModelEnum.DELETE));
 
-            File file = new File(PROJECT_PATH_SERVICE + JAVA_PATH + PACKAGE_PATH_SERVICE + modelNameUpperCamel + "Service.java");
-            if (!file.getParentFile().exists()) {
-                file.getParentFile().mkdirs();
+            File file;
+            if (condition.getModel().contains(GenCondition.ModelEnum.SERVICE)) {
+                file = new File(PROJECT_PATH_SERVICE + JAVA_PATH + PACKAGE_PATH_SERVICE + modelNameUpperCamel + "Service.java");
+                if (!file.getParentFile().exists()) {
+                    file.getParentFile().mkdirs();
+                }
+                cfg.getTemplate("service.ftl").process(data,
+                        new FileWriter(file));
+                System.out.println(modelNameUpperCamel + "Service.java 生成成功");
             }
-            cfg.getTemplate("service.ftl").process(data,
-                    new FileWriter(file));
-            System.out.println(modelNameUpperCamel + "Service.java 生成成功");
 
-            File file1 = new File(PROJECT_PATH_SERVICE_IMPL + JAVA_PATH + PACKAGE_PATH_SERVICE_IMPL + modelNameUpperCamel + "ServiceImpl.java");
-            if (!file1.getParentFile().exists()) {
-                file1.getParentFile().mkdirs();
-            }
-            if (!file.exists() || overwrite) {
-                cfg.getTemplate("service-impl.ftl").process(data,
-                        new FileWriter(file1));
-                System.out.println(modelNameUpperCamel + "ServiceImpl.java 生成成功");
+            if (condition.getModel().contains(GenCondition.ModelEnum.SERVICE_IMP)) {
+                file = new File(PROJECT_PATH_SERVICE_IMPL + JAVA_PATH + PACKAGE_PATH_SERVICE_IMPL + modelNameUpperCamel + "ServiceImpl.java");
+                if (!file.getParentFile().exists()) {
+                    file.getParentFile().mkdirs();
+                }
+                if (!file.exists() || condition.getOverwrite()) {
+                    cfg.getTemplate("service-impl.ftl").process(data,
+                            new FileWriter(file));
+                    System.out.println(modelNameUpperCamel + "ServiceImpl.java 生成成功");
+                }
             }
 
         } catch (Exception e) {
@@ -417,7 +559,13 @@ public class CodeGenerator {
         }
     }
 
-    public static void genController(String tableName, String modelName, JavaBean javaBean) {
+    public static void genController(GenCondition condition) {
+        if (!condition.getModel().contains(GenCondition.ModelEnum.CONTROLLER)) {
+            return;
+        }
+        String tableName = condition.getTableName();
+        JavaBean javaBean = condition.getJavaBean();
+        String modelName = condition.getModelName();
         try {
             freemarker.template.Configuration cfg = getConfiguration();
 
@@ -436,12 +584,13 @@ public class CodeGenerator {
             data.put("fields", javaBean.getFields());
             data.put("hasDate", javaBean.getHasDate());
             data.put("javaBean", javaBean);
+            javaBean.setHasDelete(condition.getModel().contains(GenCondition.ModelEnum.DELETE));
 
             File file = new File(PROJECT_PATH_SERVICE_IMPL + JAVA_PATH + PACKAGE_PATH_CONTROLLER + modelNameUpperCamel + "Controller.java");
             if (!file.getParentFile().exists()) {
                 file.getParentFile().mkdirs();
             }
-            if (!file.exists() || overwrite) {
+            if (!file.exists() || condition.getOverwrite()) {
                 cfg.getTemplate("controller.ftl").process(data, new FileWriter(file));
                 System.out.println(modelNameUpperCamel + "Controller.java 生成成功");
             }

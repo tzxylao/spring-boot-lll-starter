@@ -10,7 +10,9 @@ import ${rootPackage}.${service}.pojo.query.${modelNameUpperCamel}QueryVo;
 import ${rootPackage}.${service}.pojo.add.${modelNameUpperCamel}AddVo;
 import ${rootPackage}.${service}.pojo.update.${modelNameUpperCamel}UpdateVo;
 import ${rootPackage}.${service}.pojo.query.${modelNameUpperCamel}DetailVo;
+<#if javaBean.hasDelete>
 import ${rootPackage}.${service}.pojo.delete.${modelNameUpperCamel}DeleteVo;
+</#if>
 import ${rootPackage}.${service}.pojo.result.${modelNameUpperCamel}DetailResultVo;
 import ${rootPackage}.${service}.pojo.result.${modelNameUpperCamel}ResultVo;
 import ${rootPackage}.base.mybatis.AbstractService;
@@ -67,6 +69,7 @@ public class ${modelNameUpperCamel}ServiceImpl extends AbstractService<${modelNa
         return Result.ok();
     }
 
+    <#if javaBean.hasDelete>
     @Override
     public Result delete${modelNameUpperCamel}(Request<${modelNameUpperCamel}DeleteVo> request) {
         ${modelNameUpperCamel}DeleteVo ${modelNameLowerCamel}DeleteVo = request.getBody();
@@ -75,5 +78,5 @@ public class ${modelNameUpperCamel}ServiceImpl extends AbstractService<${modelNa
         this.mapper.updateByPrimaryKeySelective(example);
         return Result.ok();
     }
-
+    </#if>
 }

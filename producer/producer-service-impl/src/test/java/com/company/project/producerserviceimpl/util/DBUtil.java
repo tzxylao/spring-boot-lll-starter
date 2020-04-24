@@ -1,6 +1,6 @@
 package com.company.project.producerserviceimpl.util;
 
-import com.company.project.producerserviceimpl.CodeGenerator;
+import com.company.project.producerserviceimpl.ModifiedConstant;
 
 import java.sql.*;
 
@@ -12,8 +12,8 @@ import java.sql.*;
 public class DBUtil {
 
     private static Connection getPreparedStatement() throws ClassNotFoundException, SQLException {
-        Class.forName(CodeGenerator.JDBC_DIVER_CLASS_NAME);
-        return DriverManager.getConnection(CodeGenerator.JDBC_URL, CodeGenerator.JDBC_USERNAME, CodeGenerator.JDBC_PASSWORD);
+        Class.forName(ModifiedConstant.JDBC_DIVER_CLASS_NAME);
+        return DriverManager.getConnection(ModifiedConstant.JDBC_URL, ModifiedConstant.JDBC_USERNAME, ModifiedConstant.JDBC_PASSWORD);
     }
 
     public interface CallBack{

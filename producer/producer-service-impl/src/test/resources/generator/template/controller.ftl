@@ -7,7 +7,9 @@ import ${rootPackage}.${service}.pojo.add.${modelNameUpperCamel}AddVo;
 import ${rootPackage}.${service}.pojo.query.${modelNameUpperCamel}QueryVo;
 import ${rootPackage}.${service}.pojo.update.${modelNameUpperCamel}UpdateVo;
 import ${rootPackage}.${service}.pojo.query.${modelNameUpperCamel}DetailVo;
+<#if javaBean.hasDelete>
 import ${rootPackage}.${service}.pojo.delete.${modelNameUpperCamel}DeleteVo;
+</#if>
 import ${rootPackage}.${service}.pojo.result.${modelNameUpperCamel}DetailResultVo;
 import ${rootPackage}.${service}.pojo.result.${modelNameUpperCamel}ResultVo;
 import ${rootPackage}.${service}.service.${modelNameUpperCamel}Service;
@@ -57,9 +59,11 @@ public class ${modelNameUpperCamel}Controller {
         return ${modelNameLowerCamel}Service.update${modelNameUpperCamel}(request);
     }
 
+    <#if javaBean.hasDelete>
     @ApiOperation("删除${tableComment}")
     @PostMapping("/delete")
     public Result delete${modelNameUpperCamel}(@Validated @RequestBody Request<${modelNameUpperCamel}DeleteVo> request) {
         return ${modelNameLowerCamel}Service.delete${modelNameUpperCamel}(request);
     }
+    </#if>
 }
