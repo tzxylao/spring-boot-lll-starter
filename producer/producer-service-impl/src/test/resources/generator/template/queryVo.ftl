@@ -1,9 +1,10 @@
-package ${rootPackage}.${service}.query;
+package ${rootPackage}.${service}.pojo.query;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import ${rootPackage}.base.common.entity.AbstractPage;
+
 <#if javaBean.hasBigDecimal??>
     <#if javaBean.hasBigDecimal == 1>
 import java.math.BigDecimal;
@@ -15,7 +16,6 @@ import java.math.BigDecimal;
 import java.util.Date;
     </#if>
 </#if>
-
 
 
 /**

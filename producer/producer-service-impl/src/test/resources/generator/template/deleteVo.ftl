@@ -1,8 +1,9 @@
-package ${rootPackage}.${service}.delete;
+package ${rootPackage}.${service}.pojo.delete;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+
 <#if javaBean.hasBigDecimal??>
     <#if javaBean.hasBigDecimal == 1>
 import java.math.BigDecimal;

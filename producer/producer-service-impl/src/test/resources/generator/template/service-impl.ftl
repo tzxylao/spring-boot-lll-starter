@@ -1,11 +1,11 @@
-package ${rootPackage}.${serviceImpl}.service.impl;
+package ${rootPackage}.${serviceImpl}.service;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import ${rootPackage}.${serviceImpl}.mapper.${modelNameUpperCamel}Mapper;
 import ${rootPackage}.${service}.pojo.entity.${modelNameUpperCamel};
-import ${rootPackage}.${serviceImpl}.service.${modelNameUpperCamel}Service;
+import ${rootPackage}.${service}.service.${modelNameUpperCamel}Service;
 import ${rootPackage}.${service}.pojo.query.${modelNameUpperCamel}QueryVo;
 import ${rootPackage}.${service}.pojo.add.${modelNameUpperCamel}AddVo;
 import ${rootPackage}.${service}.pojo.update.${modelNameUpperCamel}UpdateVo;
@@ -71,7 +71,7 @@ public class ${modelNameUpperCamel}ServiceImpl extends AbstractService<${modelNa
     public Result delete${modelNameUpperCamel}(Request<${modelNameUpperCamel}DeleteVo> request) {
         ${modelNameUpperCamel}DeleteVo ${modelNameLowerCamel}DeleteVo = request.getBody();
         ${modelNameUpperCamel} example = new ${modelNameUpperCamel}();
-        BeanUtil.copyProperties(exampleDeleteVo, example);
+        BeanUtil.copyProperties(${modelNameLowerCamel}DeleteVo, example);
         this.mapper.updateByPrimaryKeySelective(example);
         return Result.ok();
     }

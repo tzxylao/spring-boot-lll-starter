@@ -1,8 +1,9 @@
-package ${rootPackage}.${service}.query;
+package ${rootPackage}.${service}.pojo.query;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+
 <#if javaBean.hasBigDecimal??>
     <#if javaBean.hasBigDecimal == 1>
 import java.math.BigDecimal;

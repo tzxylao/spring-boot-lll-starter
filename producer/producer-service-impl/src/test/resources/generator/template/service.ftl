@@ -30,7 +30,7 @@ public interface ${modelNameUpperCamel}Service extends Service<${modelNameUpperC
      * 查询${tableComment}单项
      */
     Result<${modelNameUpperCamel}DetailResultVo> get${modelNameUpperCamel}(Request<${modelNameUpperCamel}DetailVo> request);
-        
+
     /**
      * 添加${tableComment}
      */
@@ -44,6 +44,6 @@ public interface ${modelNameUpperCamel}Service extends Service<${modelNameUpperC
     /**
      * 删除${tableComment}
      */
-    Result deleteExample(Request<${modelNameUpperCamel}DeleteVo> request);
+    Result delete${modelNameUpperCamel}(Request<${modelNameUpperCamel}DeleteVo> request);
 
 }
