@@ -35,7 +35,7 @@ Spring Boot lll starter项目是个基于企业级实战抽象脱胎出来的，
 7. feign
 8. 其它技术，如Redis，ElasticSearch等请随业务需要自行添加
 
-## 代码目录架构
+## 代码目录
 
 - spring-boot-lll-starter
   - base 基础包，随项目升级自行进行迭代

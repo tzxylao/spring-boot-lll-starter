@@ -29,7 +29,7 @@
     <modules>
         <module>base</module>
         <module>background</module>
-        <module>consumer</module>
+        <module>user</module>
     </modules>
 
     <dependencies>
