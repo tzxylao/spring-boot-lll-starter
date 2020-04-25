@@ -28,7 +28,7 @@
 
     <modules>
         <module>base</module>
-        <module>producer</module>
+        <module>background</module>
         <module>consumer</module>
     </modules>
 

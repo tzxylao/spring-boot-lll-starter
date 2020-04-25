@@ -1,6 +1,5 @@
 package com.company.project.base.interceptor;
 
-import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -12,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
  * @description:
  * @create: 2020/4/23 9:20
  **/
-@Component
 public class ValidInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {

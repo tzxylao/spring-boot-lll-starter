@@ -23,7 +23,6 @@ public class BusinessProcessor implements IBusinessProcessor {
 
     @Override
     public void before(Request request) {
-        System.out.println("before");
         List<BusinessWrap> businessClass = request.getBusinessClass();
         if (businessClass == null) {
             return;
@@ -44,7 +43,6 @@ public class BusinessProcessor implements IBusinessProcessor {
 
     @Override
     public void after(Request request, Result result) {
-        System.out.println("after");
         List<BusinessWrap> businessClass = result.getBusinessClass();
         if (businessClass == null) {
             return;
