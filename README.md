@@ -26,21 +26,21 @@ Spring Boot lll starter项目是个基于企业级实战抽象脱胎出来的，
 自动生成代码工具在background-service-impl的test包中，对自动代码生成工具的`ModifiedConstant`类进行修改，`ExecuteGenerate`该类负责自动生成框架
 
 ## 技术选型
-1.SpringCloud Alibaba
-2.tkMybatis+MyBatis PageHelper分页插件
-3.Druid Spring Boot Starter
-4.Nocos配置及注册中心
-5.hutool工具集
-6.lombok
-7.其它技术，如Redis，ElasticSearch等请随业务需要自行添加
+1. SpringCloud Alibaba
+2. tkMybatis+MyBatis PageHelper分页插件
+3. Druid Spring Boot Starter
+4. Nocos配置及注册中心
+5. hutool工具集
+6. lombok
+7. 其它技术，如Redis，ElasticSearch等请随业务需要自行添加
 
 ## 说明
-1.你会看到我的自动生成代码显得比较复杂，有那么多查询返回的自定义类，业务初期你可能一个简单的单表查询就能解决所有字段的查询，
+1. 你会看到我的自动生成代码显得比较复杂，有那么多查询返回的自定义类，业务初期你可能一个简单的单表查询就能解决所有字段的查询，
 但需求是一直在变的，很快你就要面对重新定义返回类，入参类等等，所以我决定在代码生成初期就尽可能的细分代码
-2.生成基本接口有：增、删、改、查单个及查列表，其中查单个和查列表根据企业实战很有可能随业务变动会变成不止查询一张表，所以我留了mapper层由用户自己实现
-3.之所以用jackson进行序列化配置，也是因为用fastjson的时候常遇到坑，如果你习惯使用fastjson这两者也不冲突，你可以在业务代码里使用fastjson
-4.推荐多用Precondition类来抛出异常，由全局异常处理判断如何处理
-5.base包我不打算打成额外Jar包，我希望随业务增长，使用者可以把base包作为基础包不断自行迭代
+2. 生成基本接口有：增、删、改、查单个及查列表，其中查单个和查列表根据企业实战很有可能随业务变动会变成不止查询一张表，所以我留了mapper层由用户自己实现
+3. 之所以用jackson进行序列化配置，也是因为用fastjson的时候常遇到坑，如果你习惯使用fastjson这两者也不冲突，你可以在业务代码里使用fastjson
+4. 推荐多用Precondition类来抛出异常，由全局异常处理判断如何处理
+5. base包我不打算打成额外Jar包，我希望随业务增长，使用者可以把base包作为基础包不断自行迭代
 <span id="1">6.根据企业级实战，我们业务后期常会遇到一种情况，好多接口的调用都可能会需要操作相同的业务，比如用户的很多行为，都可能改变用户状态，
 我的业务码设计就是为了解决这种情况
 Result.ok().addBusinessClass(Result.wrap(BusinessEnum.A001.getClazz())) 
