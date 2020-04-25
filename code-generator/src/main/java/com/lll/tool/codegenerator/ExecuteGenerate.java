@@ -17,14 +17,16 @@ import static com.lll.tool.codegenerator.generate.CodeGenerator.*;
 public class ExecuteGenerate {
 
     public static void main(String[] args) {
-        generateByTableName("user_user","User");
+        example3();
     }
 
     /**
      * 直接通过表名生成对应的实体类
      */
     public static void example1() {
-        generateByTableNames("user");
+        List<String> tableNames = new ArrayList<>();
+        tableNames.add("user_user");
+        generateByTableNames(tableNames);
     }
 
     /**
@@ -40,13 +42,13 @@ public class ExecuteGenerate {
     public static void example3() {
         List<CodeGenerator.GenCondition.ModelEnum> modelEnums = new ArrayList<>();
         // 重新生成XXXAddVo
-        modelEnums.add(CodeGenerator.GenCondition.ModelEnum.ADD);
+//        modelEnums.add(CodeGenerator.GenCondition.ModelEnum.ADD);
 
         // 重新生成XXXMapper.java 接口，需要依赖BASE，数据库对应实体类也会同步更新
         modelEnums.add(CodeGenerator.GenCondition.ModelEnum.BASE);
         modelEnums.add(CodeGenerator.GenCondition.ModelEnum.MAPPER);
 
-        reGenerateByModelEnum(modelEnums, "unlock_order");
+        reGenerateByModelEnum(modelEnums, "User","user_user");
     }
 
 

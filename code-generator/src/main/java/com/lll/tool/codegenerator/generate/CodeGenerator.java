@@ -49,7 +49,7 @@ public class CodeGenerator {
      *
      * @param tableNames
      */
-    public static void generateByTableNames(String... tableNames) {
+    public static void generateByTableNames(List<String> tableNames) {
         reGenerateByModelEnum(null, tableNames);
     }
 
@@ -70,9 +70,20 @@ public class CodeGenerator {
      * 选择部分实体类重新生成
      *
      * @param modelEnums 可选实体类枚举
-     * @param tableNames 需要更新的表名
      */
-    public static void reGenerateByModelEnum(List<GenCondition.ModelEnum> modelEnums, String... tableNames) {
+    public static void reGenerateByModelEnum(List<GenCondition.ModelEnum> modelEnums, String modelMode, String tableName) {
+        List<GenCondition> genConditions = new ArrayList<>();
+        CodeGenerator.GenCondition genCondition;
+        if (modelEnums == null) {
+            genCondition = new GenCondition(tableName, true);
+        } else {
+            genCondition = new CodeGenerator.GenCondition(tableName, true, modelMode, modelEnums);
+        }
+        genConditions.add(genCondition);
+        CodeGenerator.genCode(genConditions);
+    }
+
+    public static void reGenerateByModelEnum(List<GenCondition.ModelEnum> modelEnums, List<String> tableNames) {
         List<GenCondition> genConditions = new ArrayList<>();
         for (String tableName : tableNames) {
             CodeGenerator.GenCondition genCondition;
@@ -84,6 +95,12 @@ public class CodeGenerator {
             genConditions.add(genCondition);
         }
         CodeGenerator.genCode(genConditions);
+    }
+
+    public static void reGenerateByModelEnum(List<GenCondition.ModelEnum> modelEnums, String tableName) {
+        List<String> tableNames = new ArrayList<>();
+        tableNames.add(tableName);
+        reGenerateByModelEnum(modelEnums, tableNames);
     }
 
     /**
@@ -158,6 +175,13 @@ public class CodeGenerator {
         public GenCondition(String tableName, Boolean overwrite, List<ModelEnum> model) {
             this.tableName = tableName;
             this.overwrite = overwrite;
+            this.model = model;
+        }
+
+        public GenCondition(String tableName, Boolean overwrite, String modelName, List<ModelEnum> model) {
+            this.tableName = tableName;
+            this.overwrite = overwrite;
+            this.modelName = modelName;
             this.model = model;
         }
 
@@ -470,6 +494,7 @@ public class CodeGenerator {
         jdbcConnectionConfiguration.setUserId(JDBC_USERNAME);
         jdbcConnectionConfiguration.setPassword(JDBC_PASSWORD);
         jdbcConnectionConfiguration.setDriverClass(JDBC_DIVER_CLASS_NAME);
+        jdbcConnectionConfiguration.addProperty("nullCatalogMeansCurrent", "true");
         context.setJdbcConnectionConfiguration(jdbcConnectionConfiguration);
 
         PluginConfiguration pluginConfiguration = new PluginConfiguration();
