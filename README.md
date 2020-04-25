@@ -45,18 +45,26 @@ Spring Boot lll starter项目是个基于企业级实战抽象脱胎出来的，
     - config 全项目配置文件
     - exception 自定义异常类及异常全局处理
     - mybatis mybatis的基石抽象类
-  - background
+  - background 后台项目
     - background-service 后台项目实体类及接口
       - pojo 多层次的实体类分类，包括请求、删除、返回结果等等
       - service 服务接口层
     - background-service-impl 后台项目实现主体
-      - business 统一业务类
-        - clazz 添加业务实现类
-        - BusinessEnum 每添加一个业务实现类，在枚举中塞一个编码
-      - config 本项目配置文件
-      - controller 控制层
-      - mapper Dao层
-      - service 服务实现层
+      - main
+          - business 统一业务类
+            - clazz 添加业务实现类
+            - BusinessEnum 每添加一个业务实现类，在枚举中塞一个编码
+          - config 本项目配置文件
+          - controller 控制层
+          - mapper Dao层
+          - service 服务实现层
+      - test
+        - generate 代码生成文件源码
+        - util 生成代码用到的工具
+        - ModifiedConstant 代码生成配置，代码生成前请配置该文件
+        - ExecuteGenerate 代码生成执行类，里面有几个生成例子
+      
+  - resources 模板文件，如有需要可以自定义
 
 
 ## 说明
@@ -67,5 +75,5 @@ Spring Boot lll starter项目是个基于企业级实战抽象脱胎出来的，
 4. 推荐多用Precondition类来抛出异常，由全局异常处理判断如何处理
 5. base包我不打算打成额外Jar包，我希望随业务增长，使用者可以把base包作为基础包不断自行迭代
 6. <span id="1">根据企业级实战，我们业务后期常会遇到一种情况，好多接口的调用都可能会需要操作相同的业务，比如用户的很多行为，都可能改变用户状态，
-我的业务码设计就是为了解决这种情况`Result.ok().addBusinessClass(Result.wrap(BusinessEnum.A001.getClazz())) `通过这样添加业务吗统一去解决同一件事，本质用到了设计模式的策略模式，你可以处理的参数为入参和出参
+我的业务码设计就是为了解决这种情况`Result.ok().addBusinessClass(Result.wrap(BusinessEnum.A001.getClazz())) `通过这样添加业务码统一去解决同一件事，本质用到了设计模式的策略模式，你可以处理的参数为入参和出参
 </span>

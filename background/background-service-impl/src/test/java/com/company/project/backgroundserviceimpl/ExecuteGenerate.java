@@ -23,14 +23,14 @@ public class ExecuteGenerate {
      * 直接通过表名生成对应的实体类
      */
     public static void example1() {
-        generateByTableName("user_user","User");
+        generateByTableNames("user");
     }
 
     /**
      * 直接通过表名生成对应的实体类
      */
     public static void example2() {
-        generateByTableName("order_order","Order");
+        generateByTableName("user_user","User");
     }
 
     /**
