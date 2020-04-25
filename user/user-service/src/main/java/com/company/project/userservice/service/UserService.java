@@ -3,6 +3,7 @@ package com.company.project.userservice.service;
 import com.company.project.base.common.entity.Request;
 import com.company.project.base.common.entity.Result;
 import com.company.project.base.common.entity.ResultListVo;
+import com.company.project.base.exeception.DataException;
 import com.company.project.base.mybatis.Service;
 import com.company.project.userservice.pojo.add.UserAddVo;
 import com.company.project.userservice.pojo.delete.UserDeleteVo;
@@ -82,7 +83,7 @@ public interface UserService extends Service<User> {
 
                 @Override
                 public Result deleteUser(Request<UserDeleteVo> request) {
-                    return null;
+                    throw new DataException("deleteUser");
                 }
             };
         }

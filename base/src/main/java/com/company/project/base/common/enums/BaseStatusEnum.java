@@ -15,8 +15,7 @@ public enum BaseStatusEnum {
     FAILURE_DATA(50002, "数据异常"),
     FAILURE_CONDITION(50003, "条件异常"),
     FAILURE_NOT_EXIST(50004, "不存在异常"),
-    FAILURE_HYSTRIX(50005, "熔断异常"),
-    TIME_OUT(50006, "超时异常")
+    FAILURE_HYSTRIX(50005, "熔断异常")
     ;
 
     private Integer code;

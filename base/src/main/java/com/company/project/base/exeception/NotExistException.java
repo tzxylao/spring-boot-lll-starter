@@ -25,4 +25,8 @@ public class NotExistException extends RuntimeException {
     protected NotExistException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
+
+    public static void main(String[] args) {
+        System.out.println("Hello world");
+    }
 }
