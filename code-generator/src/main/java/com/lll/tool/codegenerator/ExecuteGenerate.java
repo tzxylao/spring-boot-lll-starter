@@ -1,11 +1,12 @@
-package com.company.project.backgroundserviceimpl;
+package com.lll.tool.codegenerator;
 
-import com.company.project.backgroundserviceimpl.generate.CodeGenerator;
+
+import com.lll.tool.codegenerator.generate.CodeGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.company.project.backgroundserviceimpl.generate.CodeGenerator.*;
+import static com.lll.tool.codegenerator.generate.CodeGenerator.*;
 
 
 /**
@@ -16,7 +17,7 @@ import static com.company.project.backgroundserviceimpl.generate.CodeGenerator.*
 public class ExecuteGenerate {
 
     public static void main(String[] args) {
-        example1();
+        generateByTableName("user_user","User");
     }
 
     /**

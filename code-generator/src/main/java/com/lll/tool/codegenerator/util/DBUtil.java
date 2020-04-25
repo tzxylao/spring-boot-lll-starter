@@ -1,6 +1,7 @@
-package com.company.project.backgroundserviceimpl.util;
+package com.lll.tool.codegenerator.util;
 
-import com.company.project.backgroundserviceimpl.ModifiedConstant;
+
+import com.lll.tool.codegenerator.ModifiedConstant;
 
 import java.sql.*;
 

@@ -1,6 +1,7 @@
-package com.company.project.backgroundserviceimpl.generate;
+package com.lll.tool.codegenerator.generate;
 
-import static com.company.project.backgroundserviceimpl.ModifiedConstant.*;
+
+import static com.lll.tool.codegenerator.ModifiedConstant.*;
 
 /**
  * 项目常量

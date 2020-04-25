@@ -1,7 +1,8 @@
-package com.company.project.backgroundserviceimpl.generate;
+package com.lll.tool.codegenerator.generate;
 
-import com.company.project.backgroundserviceimpl.util.DBUtil;
+import cn.hutool.core.date.DateUtil;
 import com.google.common.base.CaseFormat;
+import com.lll.tool.codegenerator.util.DBUtil;
 import freemarker.template.TemplateExceptionHandler;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,8 +16,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 
-import static com.company.project.backgroundserviceimpl.ModifiedConstant.*;
-import static com.company.project.backgroundserviceimpl.generate.ProjectConstant.*;
+import static com.lll.tool.codegenerator.ModifiedConstant.*;
+import static com.lll.tool.codegenerator.generate.ProjectConstant.*;
+
 
 /**
  * 代码生成器，根据数据表名称生成对应的pojo、Mapper、Service、Controller、ServiceImpl简化开发。
@@ -38,7 +40,8 @@ public class CodeGenerator {
     private static final String PACKAGE_PATH_DELETE_VO = packageConvertPath(DELETE_VO_PACKAGE);//生成的queryVo存放路径
     private static final String PACKAGE_PATH_RESULT_VO = packageConvertPath(RESULT_VO_PACKAGE);//生成的resultVo存放路径
 
-    private static final String DATE = cn.hutool.core.date.DateUtil.formatDateTime(new Date());//@date
+
+    private static final String DATE = DateUtil.formatDateTime(new Date());//@date
 
 
     /**
@@ -57,7 +60,7 @@ public class CodeGenerator {
      * @param modelName
      */
     public static void generateByTableName(String tableName, String modelName) {
-        List<CodeGenerator.GenCondition> genConditions = new ArrayList<>();
+        List<GenCondition> genConditions = new ArrayList<>();
         CodeGenerator.GenCondition genCondition = new CodeGenerator.GenCondition(tableName, modelName);
         genConditions.add(genCondition);
         CodeGenerator.genCode(genConditions);
@@ -69,8 +72,8 @@ public class CodeGenerator {
      * @param modelEnums 可选实体类枚举
      * @param tableNames 需要更新的表名
      */
-    public static void reGenerateByModelEnum(List<CodeGenerator.GenCondition.ModelEnum> modelEnums, String... tableNames) {
-        List<CodeGenerator.GenCondition> genConditions = new ArrayList<>();
+    public static void reGenerateByModelEnum(List<GenCondition.ModelEnum> modelEnums, String... tableNames) {
+        List<GenCondition> genConditions = new ArrayList<>();
         for (String tableName : tableNames) {
             CodeGenerator.GenCondition genCondition;
             if (modelEnums == null) {

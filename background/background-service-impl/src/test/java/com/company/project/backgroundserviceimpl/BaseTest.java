@@ -1,4 +1,4 @@
-package com.company.project.backgroundserviceimpl.util;
+package com.company.project.backgroundserviceimpl;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.runner.RunWith;

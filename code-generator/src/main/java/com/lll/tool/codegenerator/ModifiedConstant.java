@@ -1,4 +1,4 @@
-package com.company.project.backgroundserviceimpl;
+package com.lll.tool.codegenerator;
 
 /**
  * @author: laoliangliang
@@ -26,5 +26,5 @@ public class ModifiedConstant {
     /**
      * 项目
      */
-    public static final String PROJECT = "background";
+    public static final String PROJECT = "user";
 }
