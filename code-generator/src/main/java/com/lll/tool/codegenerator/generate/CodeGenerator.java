@@ -26,7 +26,7 @@ import static com.lll.tool.codegenerator.generate.ProjectConstant.*;
 public class CodeGenerator {
     private static final String PROJECT_PATH_SERVICE_IMPL = System.getProperty("user.dir") + "/" + PROJECT_SERVICE_IMPL;//项目在硬盘上的基础路径
     private static final String PROJECT_PATH_SERVICE = System.getProperty("user.dir") + "/" + PROJECT_SERVICE;//项目在硬盘上的基础路径
-    private static final String TEMPLATE_FILE_PATH = System.getProperty("user.dir") + "/resources/generator/template";//模板位置
+    private static final String TEMPLATE_FILE_PATH = System.getProperty("user.dir") + "/code-generator/src/main/resources/generator/template";//模板位置
 
     private static final String JAVA_PATH = "/src/main/java"; //java文件路径
     private static final String RESOURCES_PATH = "/src/main/resources";//资源文件路径

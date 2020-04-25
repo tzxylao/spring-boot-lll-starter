@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.project.userserviceimpl.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="com.company.project.userservice.pojo.entity.User">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="nick" jdbcType="VARCHAR" property="nick" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="avatar" jdbcType="VARCHAR" property="avatar" />
+    <result column="gender" jdbcType="INTEGER" property="gender" />
+    <result column="region" jdbcType="VARCHAR" property="region" />
+    <result column="cs_id" jdbcType="BIGINT" property="csId" />
+    <result column="intention" jdbcType="INTEGER" property="intention" />
+    <result column="creator" jdbcType="VARCHAR" property="creator" />
+    <result column="created" jdbcType="TIMESTAMP" property="created" />
+    <result column="modifier" jdbcType="VARCHAR" property="modifier" />
+    <result column="modified" jdbcType="TIMESTAMP" property="modified" />
+    <result column="logined" jdbcType="TIMESTAMP" property="logined" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="password_changed" jdbcType="INTEGER" property="passwordChanged" />
+    <result column="source_platform" jdbcType="VARCHAR" property="sourcePlatform" />
+    <result column="login_errors" jdbcType="INTEGER" property="loginErrors" />
+    <result column="birth_date" jdbcType="DATE" property="birthDate" />
+    <result column="wx_code" jdbcType="VARCHAR" property="wxCode" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="belong" jdbcType="INTEGER" property="belong" />
+    <result column="deliver_time" jdbcType="TIMESTAMP" property="deliverTime" />
+    <result column="olded" jdbcType="INTEGER" property="olded" />
+    <result column="wx_nick" jdbcType="VARCHAR" property="wxNick" />
+    <result column="new_deposition_time" jdbcType="TIMESTAMP" property="newDepositionTime" />
+    <result column="deposition_time" jdbcType="TIMESTAMP" property="depositionTime" />
+    <result column="add_fans_time" jdbcType="TIMESTAMP" property="addFansTime" />
+    <result column="channel_id" jdbcType="BIGINT" property="channelId" />
+    <result column="level" jdbcType="INTEGER" property="level" />
+  </resultMap>
+    <select id="selectUserList" resultType="com.company.project.userservice.pojo.result.UserResultVo">
+      select phone,name from user_user
+    </select>
+</mapper>

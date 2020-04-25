@@ -82,13 +82,6 @@
 			<artifactId>commons-lang3</artifactId>
 		</dependency>
 
-		<!--代码生成器依赖-->
-		<dependency>
-			<groupId>org.freemarker</groupId>
-			<artifactId>freemarker</artifactId>
-			<scope>test</scope>
-		</dependency>
-
 		<!-- 发送邮件需要的2个jar -->
 		<dependency>
 			<groupId>org.codehaus.janino</groupId>

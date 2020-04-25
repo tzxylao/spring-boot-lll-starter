@@ -17,7 +17,7 @@ import static com.lll.tool.codegenerator.generate.CodeGenerator.*;
 public class ExecuteGenerate {
 
     public static void main(String[] args) {
-        example3();
+        generateByTableName("order_order","Order");
     }
 
     /**

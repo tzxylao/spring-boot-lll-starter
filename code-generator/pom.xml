@@ -30,10 +30,6 @@
         </dependency>
         <dependency>
             <groupId>tk.mybatis</groupId>
-            <artifactId>mapper-spring-boot-starter</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>tk.mybatis</groupId>
             <artifactId>mapper-generator</artifactId>
             <version>1.0.0</version>
         </dependency>
