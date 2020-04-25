@@ -11,14 +11,20 @@ public enum BusinessEnum {
     /**
      * 通用业务编码
      */
-    A001(Business001.class);
+    A001(Business001.class,"业务描述");
     private Class clazz;
+    private String desc;
 
-    BusinessEnum(Class clazz) {
+    BusinessEnum(Class clazz,String desc) {
         this.clazz = clazz;
+        this.desc = desc;
     }
 
     public Class getClazz() {
         return clazz;
+    }
+
+    public String getDesc() {
+        return desc;
     }
 }

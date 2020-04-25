@@ -10,6 +10,7 @@ Spring Boot lll starter项目是个基于企业级实战抽象脱胎出来的，
 - 使用jackson进行序列表配置
 - 集成tkMyBatis、通用Mapper插件、PageHelper分页插件，实现单表业务零SQL
 - swagger2开发文档集成，启动后访问`localhost:8081/swagger-ui.html`
+- [业务统一码](#1)
 
 ## 快速开发
 ### 第一步
@@ -40,4 +41,8 @@ Spring Boot lll starter项目是个基于企业级实战抽象脱胎出来的，
 3.之所以用jackson进行序列化配置，也是因为用fastjson的时候常遇到坑，如果你习惯使用fastjson这两者也不冲突，你可以在业务代码里使用fastjson
 4.推荐多用Precondition类来抛出异常，由全局异常处理判断如何处理
 5.base包我不打算打成额外Jar包，我希望随业务增长，使用者可以把base包作为基础包不断自行迭代
- 
+<span id="1">6.根据企业级实战，我们业务后期常会遇到一种情况，好多接口的调用都可能会需要操作相同的业务，比如用户的很多行为，都可能改变用户状态，
+我的业务码设计就是为了解决这种情况
+Result.ok().addBusinessClass(Result.wrap(BusinessEnum.A001.getClazz())) 
+通过这样添加业务吗统一去解决同一件事，本质用到了设计模式的策略模式，你可以处理的参数为入参和出参
+</span>

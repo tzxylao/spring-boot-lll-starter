@@ -2,7 +2,7 @@
     <contextName>logback</contextName>
     <!--配置文件中参数-->
     <springProperty scope="context" name="applicationName" source="spring.application.name"/>
-    <!--<springProperty scope="context" name="alertEmail" source="onegene.alert.email"/>-->
+    <springProperty scope="context" name="alertEmail" source="onegene.alert.email"/>
     <springProperty scope="context" name="profile" source="spring.profiles.active"/>
     <!--  邮件 -->
     <!-- SMTP server的地址，必需指定。如网易的SMTP服务器地址是： smtp.163.com -->
