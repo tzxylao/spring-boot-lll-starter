@@ -16,7 +16,7 @@ import static com.company.project.producerserviceimpl.generate.CodeGenerator.*;
 public class ExecuteGenerate {
 
     public static void main(String[] args) {
-        example2();
+        example1();
     }
 
     /**

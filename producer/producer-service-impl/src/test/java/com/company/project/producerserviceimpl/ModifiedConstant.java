@@ -18,5 +18,13 @@ public class ModifiedConstant {
      */
     public static final String AUTHOR = "laoliangliang";//@author
 
+    /**
+     * 基础包 com.公司.工程
+     */
+    public static final String ROOT_PACKAGE = "com.company.project";
 
+    /**
+     * 项目
+     */
+    public static final String PROJECT = "consumer";
 }

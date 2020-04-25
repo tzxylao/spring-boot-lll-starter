@@ -24,7 +24,7 @@ import static com.company.project.producerserviceimpl.generate.ProjectConstant.*
 public class CodeGenerator {
     private static final String PROJECT_PATH_SERVICE_IMPL = System.getProperty("user.dir") + "/" + PROJECT_SERVICE_IMPL;//项目在硬盘上的基础路径
     private static final String PROJECT_PATH_SERVICE = System.getProperty("user.dir") + "/" + PROJECT_SERVICE;//项目在硬盘上的基础路径
-    private static final String TEMPLATE_FILE_PATH = PROJECT_PATH_SERVICE_IMPL + "/src/test/resources/generator/template";//模板位置
+    private static final String TEMPLATE_FILE_PATH = System.getProperty("user.dir") + "/resources/generator/template";//模板位置
 
     private static final String JAVA_PATH = "/src/main/java"; //java文件路径
     private static final String RESOURCES_PATH = "/src/main/resources";//资源文件路径
@@ -72,7 +72,12 @@ public class CodeGenerator {
     public static void reGenerateByModelEnum(List<CodeGenerator.GenCondition.ModelEnum> modelEnums, String... tableNames) {
         List<CodeGenerator.GenCondition> genConditions = new ArrayList<>();
         for (String tableName : tableNames) {
-            CodeGenerator.GenCondition genCondition = new CodeGenerator.GenCondition(tableName, true, modelEnums);
+            CodeGenerator.GenCondition genCondition;
+            if (modelEnums == null) {
+                genCondition = new GenCondition(tableName, true);
+            } else {
+                genCondition = new CodeGenerator.GenCondition(tableName, true, modelEnums);
+            }
             genConditions.add(genCondition);
         }
         CodeGenerator.genCode(genConditions);
