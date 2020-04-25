@@ -1,25 +1,24 @@
 package com.company.project.orderserviceimpl.service;
 
 import cn.hutool.core.bean.BeanUtil;
-import com.github.pagehelper.Page;
-import com.github.pagehelper.PageHelper;
-import com.company.project.orderserviceimpl.mapper.OrderMapper;
-import com.company.project.orderservice.pojo.entity.Order;
-import com.company.project.orderservice.service.OrderService;
-import com.company.project.orderservice.pojo.query.OrderQueryVo;
-import com.company.project.orderservice.pojo.add.OrderAddVo;
-import com.company.project.orderservice.pojo.update.OrderUpdateVo;
-import com.company.project.orderservice.pojo.query.OrderDetailVo;
-import com.company.project.orderservice.pojo.delete.OrderDeleteVo;
-import com.company.project.orderservice.pojo.result.OrderDetailResultVo;
-import com.company.project.orderservice.pojo.result.OrderResultVo;
-import com.company.project.base.mybatis.AbstractService;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import javax.annotation.Resource;
 import com.company.project.base.common.entity.Request;
 import com.company.project.base.common.entity.Result;
 import com.company.project.base.common.entity.ResultListVo;
+import com.company.project.base.mybatis.AbstractService;
+import com.company.project.orderservice.pojo.add.OrderAddVo;
+import com.company.project.orderservice.pojo.delete.OrderDeleteVo;
+import com.company.project.orderservice.pojo.entity.Order;
+import com.company.project.orderservice.pojo.query.OrderDetailVo;
+import com.company.project.orderservice.pojo.query.OrderQueryVo;
+import com.company.project.orderservice.pojo.result.OrderDetailResultVo;
+import com.company.project.orderservice.pojo.result.OrderResultVo;
+import com.company.project.orderservice.pojo.update.OrderUpdateVo;
+import com.company.project.orderservice.service.OrderService;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RestController;
 
 
 /**
@@ -29,6 +28,7 @@ import com.company.project.base.common.entity.ResultListVo;
  **/
 @Service
 @Transactional
+@RestController
 public class OrderServiceImpl extends AbstractService<Order> implements OrderService {
 
     @Override

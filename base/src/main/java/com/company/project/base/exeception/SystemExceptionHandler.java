@@ -4,6 +4,7 @@ import cn.hutool.core.util.ObjectUtil;
 import com.company.project.base.common.entity.Result;
 import com.netflix.hystrix.exception.HystrixRuntimeException;
 import feign.FeignException;
+import feign.RetryableException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
@@ -64,14 +65,21 @@ public class SystemExceptionHandler {
     @ResponseBody
     public Result dataExceptionHandler(HttpServletRequest request, ConditionException e) {
         String msg = e.getMessage();
-        return getExceptionResult(e, FAILURE_CONDITION.code(), ObjectUtil.defaultIfNull(msg, FAILURE_DATA.msg()), false);
+        return getExceptionResult(e, FAILURE_CONDITION.code(), ObjectUtil.defaultIfNull(msg, FAILURE_CONDITION.msg()), false);
     }
 
     @ExceptionHandler(value = NotExistException.class)
     @ResponseBody
     public Result notExistExceptionHandler(HttpServletRequest request, NotExistException e) {
         String msg = e.getMessage();
-        return getExceptionResult(e, FAILURE_NOT_EXIST.code(), ObjectUtil.defaultIfNull(msg, FAILURE_DATA.msg()), false);
+        return getExceptionResult(e, FAILURE_NOT_EXIST.code(), ObjectUtil.defaultIfNull(msg, FAILURE_NOT_EXIST.msg()), false);
+    }
+
+    @ExceptionHandler(value = RetryableException.class)
+    @ResponseBody
+    public Result notExistExceptionHandler(HttpServletRequest request, RetryableException e) {
+        String msg = e.getMessage();
+        return getExceptionResult(e, TIME_OUT.code(), ObjectUtil.defaultIfNull(msg, TIME_OUT.msg()), false);
     }
 
     @ExceptionHandler(value = {FeignException.class, RuntimeException.class})

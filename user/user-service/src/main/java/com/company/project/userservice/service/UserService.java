@@ -13,12 +13,9 @@ import com.company.project.userservice.pojo.result.UserDetailResultVo;
 import com.company.project.userservice.pojo.result.UserResultVo;
 import com.company.project.userservice.pojo.update.UserUpdateVo;
 import feign.hystrix.FallbackFactory;
-import org.apache.ibatis.exceptions.TooManyResultsException;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
-import tk.mybatis.mapper.entity.Condition;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.RequestBody;
 
 
 /**
@@ -32,27 +29,31 @@ public interface UserService extends Service<User> {
     /**
      * 查询C端用户信息表列表
      */
-    @PostMapping("/user/list")
-    Result<ResultListVo<UserResultVo>> getUserList(Request<UserQueryVo> request);
+    @PostMapping(value = "/user/list")
+    Result<ResultListVo<UserResultVo>> getUserList(@RequestBody Request<UserQueryVo> request);
 
     /**
      * 查询C端用户信息表单项
      */
+    @PostMapping(value = "/user/detail")
     Result<UserDetailResultVo> getUser(Request<UserDetailVo> request);
 
     /**
      * 添加C端用户信息表
      */
+    @PostMapping(value = "/user/add")
     Result addUser(Request<UserAddVo> request);
 
     /**
      * 更新C端用户信息表
      */
+    @PostMapping(value = "/user/update")
     Result updateUser(Request<UserUpdateVo> request);
 
     /**
      * 删除C端用户信息表
      */
+    @PostMapping(value = "/user/delete")
     Result deleteUser(Request<UserDeleteVo> request);
 
     class ServiceFallbackFactory implements FallbackFactory<UserService> {
@@ -81,56 +82,6 @@ public interface UserService extends Service<User> {
 
                 @Override
                 public Result deleteUser(Request<UserDeleteVo> request) {
-                    return null;
-                }
-
-                @Override
-                public void save(User model) {
-
-                }
-
-                @Override
-                public void save(List<User> models) {
-
-                }
-
-                @Override
-                public void deleteById(Integer id) {
-
-                }
-
-                @Override
-                public void deleteByIds(String ids) {
-
-                }
-
-                @Override
-                public void update(User model) {
-
-                }
-
-                @Override
-                public User findById(Integer id) {
-                    return null;
-                }
-
-                @Override
-                public User findBy(String fieldName, Object value) throws TooManyResultsException {
-                    return null;
-                }
-
-                @Override
-                public List<User> findByIds(String ids) {
-                    return null;
-                }
-
-                @Override
-                public List<User> findByCondition(Condition condition) {
-                    return null;
-                }
-
-                @Override
-                public List<User> findAll() {
                     return null;
                 }
             };
