@@ -29,10 +29,35 @@ Spring Boot lll starter项目是个基于企业级实战抽象脱胎出来的，
 1. SpringCloud Alibaba
 2. tkMybatis+MyBatis PageHelper分页插件
 3. Druid Spring Boot Starter
-4. Nocos配置及注册中心
+4. Nacos配置及注册中心
 5. hutool工具集
 6. lombok
-7. 其它技术，如Redis，ElasticSearch等请随业务需要自行添加
+7. feign
+8. 其它技术，如Redis，ElasticSearch等请随业务需要自行添加
+
+## 代码目录架构
+
+- spring-boot-lll-starter
+  - base 基础包，随项目升级自行进行迭代
+    - aop 全局aop包 目前有业务码及日志打印的处理
+    - business 业务处理器及接口
+    - common 一些项目基石的基本类及公共工具
+    - config 全项目配置文件
+    - exception 自定义异常类及异常全局处理
+    - mybatis mybatis的基石抽象类
+  - background
+    - background-service 后台项目实体类及接口
+      - pojo 多层次的实体类分类，包括请求、删除、返回结果等等
+      - service 服务接口层
+    - background-service-impl 后台项目实现主体
+      - business 统一业务类
+        - clazz 添加业务实现类
+        - BusinessEnum 每添加一个业务实现类，在枚举中塞一个编码
+      - config 本项目配置文件
+      - controller 控制层
+      - mapper Dao层
+      - service 服务实现层
+
 
 ## 说明
 1. 你会看到我的自动生成代码显得比较复杂，有那么多查询返回的自定义类，业务初期你可能一个简单的单表查询就能解决所有字段的查询，
@@ -41,8 +66,10 @@ Spring Boot lll starter项目是个基于企业级实战抽象脱胎出来的，
 3. 之所以用jackson进行序列化配置，也是因为用fastjson的时候常遇到坑，如果你习惯使用fastjson这两者也不冲突，你可以在业务代码里使用fastjson
 4. 推荐多用Precondition类来抛出异常，由全局异常处理判断如何处理
 5. base包我不打算打成额外Jar包，我希望随业务增长，使用者可以把base包作为基础包不断自行迭代
-<span id="1">6.根据企业级实战，我们业务后期常会遇到一种情况，好多接口的调用都可能会需要操作相同的业务，比如用户的很多行为，都可能改变用户状态，
+6. <span id="1">根据企业级实战，我们业务后期常会遇到一种情况，好多接口的调用都可能会需要操作相同的业务，比如用户的很多行为，都可能改变用户状态，
 我的业务码设计就是为了解决这种情况
+
 Result.ok().addBusinessClass(Result.wrap(BusinessEnum.A001.getClazz())) 
+
 通过这样添加业务吗统一去解决同一件事，本质用到了设计模式的策略模式，你可以处理的参数为入参和出参
 </span>
