@@ -58,34 +58,36 @@ public interface ${modelNameUpperCamel}Service extends Service<${modelNameUpperC
     @PostMapping(value = "/${modelNameLowerCamel}/list")                    
     Result delete${modelNameUpperCamel}(Request<${modelNameUpperCamel}DeleteVo> request);
     </#if>
-    class ServiceFallbackFactory implements FallbackFactory<UserService> {
+    class ServiceFallbackFactory implements FallbackFactory<${modelNameUpperCamel}Service> {
         @Override
-        public UserService create(Throwable throwable) {
-            return new UserService() {
+        public ${modelNameUpperCamel}Service create(Throwable throwable) {
+            return new ${modelNameUpperCamel}Service() {
                 @Override
-                public Result<ResultListVo<UserResultVo>> getUserList(Request<UserQueryVo> request) {
-                    throw new DataException("getUserList异常");
+                public Result<ResultListVo<${modelNameUpperCamel}ResultVo>> get${modelNameUpperCamel}List(Request<${modelNameUpperCamel}QueryVo> request) {
+                    throw new DataException("get${modelNameUpperCamel}List异常");
                 }
 
                 @Override
-                public Result<UserDetailResultVo> getUser(Request<UserDetailVo> request) {
-                    throw new DataException("getUser异常");
+                public Result<${modelNameUpperCamel}DetailResultVo> get${modelNameUpperCamel}(Request<${modelNameUpperCamel}DetailVo> request) {
+                    throw new DataException("get${modelNameUpperCamel}异常");
                 }
 
                 @Override
-                public Result addUser(Request<UserAddVo> request) {
-                    throw new DataException("addUser异常");
+                public Result add${modelNameUpperCamel}(Request<${modelNameUpperCamel}AddVo> request) {
+                    throw new DataException("add${modelNameUpperCamel}异常");
                 }
 
                 @Override
-                public Result updateUser(Request<UserUpdateVo> request) {
-                    throw new DataException("updateUser异常");
+                public Result update${modelNameUpperCamel}(Request<${modelNameUpperCamel}UpdateVo> request) {
+                    throw new DataException("update${modelNameUpperCamel}异常");
                 }
 
+                <#if javaBean.hasDelete>
                 @Override
-                public Result deleteUser(Request<UserDeleteVo> request) {
-                    throw new DataException("deleteUser异常");
+                public Result delete${modelNameUpperCamel}(Request<${modelNameUpperCamel}DeleteVo> request) {
+                    throw new DataException("delete${modelNameUpperCamel}异常");
                 }
+                </#if>
             };
         }
     }

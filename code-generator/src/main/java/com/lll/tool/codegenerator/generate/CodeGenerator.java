@@ -66,6 +66,10 @@ public class CodeGenerator {
         CodeGenerator.genCode(genConditions);
     }
 
+    public static void generateByTableName(String tableName) {
+        generateByTableName(tableName, null);
+    }
+
     /**
      * 选择部分实体类重新生成
      *

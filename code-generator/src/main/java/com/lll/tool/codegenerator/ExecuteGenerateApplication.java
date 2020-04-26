@@ -14,10 +14,10 @@ import static com.lll.tool.codegenerator.generate.CodeGenerator.*;
  * @description: 生成表的例子
  * @create: 2020/4/24 11:05
  **/
-public class ExecuteGenerate {
+public class ExecuteGenerateApplication {
 
     public static void main(String[] args) {
-        generateByTableName("order_order","Order");
+        generateByTableName("user_role");
     }
 
     /**
@@ -48,7 +48,7 @@ public class ExecuteGenerate {
         modelEnums.add(CodeGenerator.GenCondition.ModelEnum.BASE);
         modelEnums.add(CodeGenerator.GenCondition.ModelEnum.MAPPER);
 
-        reGenerateByModelEnum(modelEnums, "User","user_user");
+        reGenerateByModelEnum(modelEnums, "Order","order_order");
     }
 
 

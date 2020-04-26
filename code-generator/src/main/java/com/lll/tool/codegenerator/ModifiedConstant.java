@@ -6,7 +6,9 @@ package com.lll.tool.codegenerator;
  * @create: 2020/4/24 11:02
  **/
 public class ModifiedConstant {
-    //JDBC配置，请修改为你项目的实际配置
+    /**
+     * JDBC配置，请修改为你项目的实际配置
+     */
     public static final String TABLE_SCHEMA = "onegene_infowork";
     public static final String JDBC_URL = "jdbc:mysql://101.37.146.32:3306/" + TABLE_SCHEMA + "?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8";
     public static final String JDBC_USERNAME = "geneuser";
@@ -16,7 +18,7 @@ public class ModifiedConstant {
     /**
      * 作者
      */
-    public static final String AUTHOR = "laoliangliang";//@author
+    public static final String AUTHOR = "laoliangliang";
 
     /**
      * 基础包 com.公司.工程
@@ -26,5 +28,5 @@ public class ModifiedConstant {
     /**
      * 项目
      */
-    public static String PROJECT = "order";
+    public static String PROJECT = "user";
 }
