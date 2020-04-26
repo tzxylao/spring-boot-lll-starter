@@ -3,8 +3,13 @@ package com.company.project.orderserviceimpl.controller;
 import com.company.project.base.common.entity.Request;
 import com.company.project.base.common.entity.Result;
 import com.company.project.base.common.entity.ResultListVo;
+import com.company.project.userservice.pojo.add.UserRoleAddVo;
 import com.company.project.userservice.pojo.query.UserQueryVo;
+import com.company.project.userservice.pojo.query.UserRoleDetailVo;
 import com.company.project.userservice.pojo.result.UserResultVo;
+import com.company.project.userservice.pojo.result.UserRoleDetailResultVo;
+import com.company.project.userservice.pojo.update.UserRoleUpdateVo;
+import com.company.project.userservice.service.UserRoleService;
 import com.company.project.userservice.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -21,17 +26,27 @@ import org.springframework.web.bind.annotation.RestController;
  * @create: 2020-04-25 17:18:40
  **/
 @RestController
-@RequestMapping("/order")
-@Api(tags = "订单表管理")
+@RequestMapping("/user")
+@Api(tags = "在订单模拟微服务调用用户信息")
 public class OrderController {
 
     @Autowired
     private UserService userService;
 
-    @ApiOperation("查询订单表列表")
+    @Autowired
+    private UserRoleService userRoleService;
+
+    @ApiOperation("查询用户列表")
     @PostMapping("/list")
     public Result<ResultListVo<UserResultVo>> getOrderList(@Validated @RequestBody Request<UserQueryVo> request) {
         return userService.getUserList(request);
     }
+
+    @ApiOperation("查询角色表单项")
+    @PostMapping("/detail")
+    public Result<UserRoleDetailResultVo> getUserRole(@Validated @RequestBody Request<UserRoleDetailVo> request) {
+        return userRoleService.getUserRole(request);
+    }
+
 
 }

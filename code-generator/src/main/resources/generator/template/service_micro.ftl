@@ -1,5 +1,6 @@
 package ${rootPackage}.${service}.service;
 
+import ${rootPackage}.base.exeception.DataException;
 import ${rootPackage}.${service}.pojo.entity.${modelNameUpperCamel};
 import ${rootPackage}.${service}.pojo.query.${modelNameUpperCamel}QueryVo;
 import ${rootPackage}.${service}.pojo.add.${modelNameUpperCamel}AddVo;
@@ -24,39 +25,40 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @description:
  * @create: ${date}
  **/
-@FeignClient(name = "${modelNameLowerCamel}",fallbackFactory = ${modelNameLowerCamel}Service.ServiceFallbackFactory.class)
+@FeignClient(name = "${modelNameLowerCamel}", fallbackFactory = ${modelNameUpperCamel}Service.ServiceFallbackFactory.class)
 public interface ${modelNameUpperCamel}Service extends Service<${modelNameUpperCamel}> {
 
     /**
      * 查询${tableComment}列表
      */
-    @PostMapping(value = "/${modelNameLowerCamel}/list")
-    Result<ResultListVo<${modelNameUpperCamel}ResultVo>> get${modelNameUpperCamel}List(Request<${modelNameUpperCamel}QueryVo> request);
+    @PostMapping(value = "${baseRequestMapping}/list")
+    Result<ResultListVo<${modelNameUpperCamel}ResultVo>> get${modelNameUpperCamel}List(@RequestBody Request<${modelNameUpperCamel}QueryVo> request);
 
     /**
      * 查询${tableComment}单项
      */
-    @PostMapping(value = "/${modelNameLowerCamel}/list")
-    Result<${modelNameUpperCamel}DetailResultVo> get${modelNameUpperCamel}(Request<${modelNameUpperCamel}DetailVo> request);
+    @PostMapping(value = "${baseRequestMapping}/detail")
+    Result<${modelNameUpperCamel}DetailResultVo> get${modelNameUpperCamel}(@RequestBody Request<${modelNameUpperCamel}DetailVo> request);
 
     /**
      * 添加${tableComment}
      */
-    @PostMapping(value = "/${modelNameLowerCamel}/list")
-    Result add${modelNameUpperCamel}(Request<${modelNameUpperCamel}AddVo> request);
+    @PostMapping(value = "${baseRequestMapping}/add")
+    Result add${modelNameUpperCamel}(@RequestBody Request<${modelNameUpperCamel}AddVo> request);
 
     /**
      * 更新${tableComment}
      */
-    @PostMapping(value = "/${modelNameLowerCamel}/list")
-    Result update${modelNameUpperCamel}(Request<${modelNameUpperCamel}UpdateVo> request);
+    @PostMapping(value = "${baseRequestMapping}/update")
+    Result update${modelNameUpperCamel}(@RequestBody Request<${modelNameUpperCamel}UpdateVo> request);
 
     <#if javaBean.hasDelete>
     /**
      * 删除${tableComment}
      */
-    @PostMapping(value = "/${modelNameLowerCamel}/list")                    
-    Result delete${modelNameUpperCamel}(Request<${modelNameUpperCamel}DeleteVo> request);
+    @PostMapping(value = "${baseRequestMapping}/delete")
+    Result delete${modelNameUpperCamel}(@RequestBody Request<${modelNameUpperCamel}DeleteVo> request);
+
     </#if>
     class ServiceFallbackFactory implements FallbackFactory<${modelNameUpperCamel}Service> {
         @Override

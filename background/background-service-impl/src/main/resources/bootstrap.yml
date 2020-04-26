@@ -4,11 +4,10 @@ spring:
       username: nacos
       password: nacos
       config:
+        enabled: false
         refresh-enabled: true
         server-addr: 47.98.60.103:8848
         file-extension: yml
-      discovery:
-        server-addr: 47.98.60.103:8848
   application:
     name: background
   profiles:

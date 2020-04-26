@@ -15,8 +15,9 @@ import java.util.List;
 @Data
 public class Result<T> {
     private T data;
-    private Integer code;
+    private Integer status;
     private Boolean success;
+    private String message;
     /**
      * 执行业务类名
      */
@@ -27,7 +28,7 @@ public class Result<T> {
         return new BusinessWrap(clazz);
     }
 
-    public static BusinessWrap wrap(Class clazz,String action) {
+    public static BusinessWrap wrap(Class clazz, String action) {
         return new BusinessWrap(clazz, action);
     }
 
@@ -56,27 +57,45 @@ public class Result<T> {
     }
 
     public static <T> Result<T> ok(T data) {
-        return ok(data, null);
+        return ok(data, null, null, null);
     }
 
-    public static <T> Result<T> ok(Integer code, T data) {
-        return ok(code, data, null);
+
+    public static <T> Result<T> ok(T data, String message) {
+        return ok(data, message, null);
+    }
+
+    public static <T> Result<T> ok(T data, Integer status) {
+        return ok(data, status, null, null);
+    }
+
+    public static <T> Result<T> ok(T data, Integer status, String message) {
+        return ok(data, status, message);
     }
 
     public static <T> Result<T> ok(T data, List<BusinessWrap> businessClass) {
-        return ok(BaseStatusEnum.SUCCESS.code(), data, businessClass);
+        return ok(data, BaseStatusEnum.SUCCESS.code(), businessClass);
     }
 
-    public static <T> Result<T> ok(Integer code, T data, List<BusinessWrap> businessClass) {
-        return get(true, code, data, businessClass);
+    public static <T> Result<T> ok(T data, String message, List<BusinessWrap> businessClass) {
+        return ok(data, BaseStatusEnum.SUCCESS.code(), message, businessClass);
     }
 
-    public static <T> Result<T> get(Boolean success, Integer code, T data, List<BusinessWrap> businessClass) {
+    public static <T> Result<T> ok(T data, Integer status, List<BusinessWrap> businessClass) {
+        return ok(data, status, null, businessClass);
+    }
+
+    public static <T> Result<T> ok(T data, Integer status, String message, List<BusinessWrap> businessClass) {
+        return get(true, status, data, message, businessClass);
+    }
+
+    public static <T> Result<T> get(Boolean success, Integer status, T data, String message, List<BusinessWrap> businessClass) {
         Result<T> result = new Result<>();
         result.setSuccess(success);
-        result.setCode(code);
+        result.setStatus(status);
         result.setData(data);
         result.setBusinessClass(businessClass);
+        result.setMessage(message);
         return result;
     }
 
@@ -85,19 +104,35 @@ public class Result<T> {
     }
 
     public static <T> Result<T> failure(T data) {
-        return failure(data, null);
+        return failure(data, null, null);
     }
 
-    public static <T> Result<T> failure(Integer code, T data) {
-        return failure(code, data, null);
+    public static <T> Result<T> failure(T data, String message) {
+        return failure(data, message, null);
+    }
+
+    public static <T> Result<T> failure(T data, Integer status) {
+        return failure(status, data, null, null);
+    }
+
+    public static <T> Result<T> failure(Integer status, T data, String message) {
+        return failure(status, data, message, null);
     }
 
     public static <T> Result<T> failure(T data, List<BusinessWrap> businessClass) {
         return failure(BaseStatusEnum.FAILURE.code(), data, businessClass);
     }
 
-    public static <T> Result<T> failure(Integer code, T data, List<BusinessWrap> businessClass) {
-        return get(false, code, data, businessClass);
+    public static <T> Result<T> failure(T data, String message, List<BusinessWrap> businessClass) {
+        return failure(BaseStatusEnum.FAILURE.code(), data, message, businessClass);
     }
 
+    public static <T> Result<T> failure(Integer status, T data, List<BusinessWrap> businessClass) {
+        return get(false, status, data, null, businessClass);
+    }
+
+
+    public static <T> Result<T> failure(Integer status, T data, String message, List<BusinessWrap> businessClass) {
+        return get(false, status, data, message, businessClass);
+    }
 }

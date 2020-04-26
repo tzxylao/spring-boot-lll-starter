@@ -28,5 +28,10 @@ public class ModifiedConstant {
     /**
      * 项目
      */
-    public static String PROJECT = "user";
+    public static String PROJECT = "background";
+
+    /**
+     * 两种模式 1-后台系统模式background  2-微服务模式 请准确配置
+     */
+    public static final Integer MODE = 1;
 }

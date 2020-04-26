@@ -238,11 +238,15 @@ public class CodeGenerator {
         wrapTableComment(condition);
         wrapTableField(condition);
         genModelAndMapper(condition);
-        genService(condition);
-        genController(condition);
         genQueryAndAddVo(condition);
         genDeleteVo(condition);
         genResultVo(condition);
+        if (MODE == 1) {
+            genService(condition);
+            genController(condition);
+        } else if (MODE == 2) {
+            genServiceMicro(condition);
+        }
     }
 
     private static void wrapTableField(GenCondition condition) {
@@ -566,6 +570,7 @@ public class CodeGenerator {
             data.put("date", DATE);
             data.put("author", AUTHOR);
             String modelNameUpperCamel = StringUtils.isEmpty(modelName) ? tableNameConvertUpperCamel(tableName) : modelName;
+            data.put("baseRequestMapping", modelNameConvertMappingPath(modelNameUpperCamel));
             data.put("coreExtend", CORE_EXTENDS);
             data.put("modelNameUpperCamel", modelNameUpperCamel);
             data.put("modelNameLowerCamel", tableNameConvertLowerCamel(tableName));
@@ -597,6 +602,59 @@ public class CodeGenerator {
                 }
                 if (!file.exists() || condition.getOverwrite()) {
                     cfg.getTemplate("service-impl.ftl").process(data,
+                            new FileWriter(file));
+                    System.out.println(modelNameUpperCamel + "ServiceImpl.java 生成成功");
+                }
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException("生成Service失败", e);
+        }
+    }
+
+    public static void genServiceMicro(GenCondition condition) {
+        String tableName = condition.getTableName();
+        JavaBean javaBean = condition.getJavaBean();
+        String modelName = condition.getModelName();
+        try {
+            freemarker.template.Configuration cfg = getConfiguration();
+
+            Map<String, Object> data = new HashMap<>();
+            data.put("date", DATE);
+            data.put("author", AUTHOR);
+            String modelNameUpperCamel = StringUtils.isEmpty(modelName) ? tableNameConvertUpperCamel(tableName) : modelName;
+            data.put("baseRequestMapping", modelNameConvertMappingPath(modelNameUpperCamel));
+            data.put("coreExtend", CORE_EXTENDS);
+            data.put("modelNameUpperCamel", modelNameUpperCamel);
+            data.put("modelNameLowerCamel", tableNameConvertLowerCamel(tableName));
+            data.put("basePackage", BASE_PACKAGE);
+            data.put("rootPackage", ROOT_PACKAGE);
+            data.put("service", SERVICE);
+            data.put("serviceImpl", SERVICE_IMPL);
+            data.put("tableComment", javaBean.getTableComment());
+            data.put("fields", javaBean.getFields());
+            data.put("hasDate", javaBean.getHasDate());
+            data.put("javaBean", javaBean);
+            javaBean.setHasDelete(condition.getModel().contains(GenCondition.ModelEnum.DELETE));
+
+            File file;
+            if (condition.getModel().contains(GenCondition.ModelEnum.SERVICE)) {
+                file = new File(PROJECT_PATH_SERVICE + JAVA_PATH + PACKAGE_PATH_SERVICE + modelNameUpperCamel + "Service.java");
+                if (!file.getParentFile().exists()) {
+                    file.getParentFile().mkdirs();
+                }
+                cfg.getTemplate("service_micro.ftl").process(data,
+                        new FileWriter(file));
+                System.out.println(modelNameUpperCamel + "Service.java 生成成功");
+            }
+
+            if (condition.getModel().contains(GenCondition.ModelEnum.SERVICE_IMP)) {
+                file = new File(PROJECT_PATH_SERVICE_IMPL + JAVA_PATH + PACKAGE_PATH_SERVICE_IMPL + modelNameUpperCamel + "ServiceImpl.java");
+                if (!file.getParentFile().exists()) {
+                    file.getParentFile().mkdirs();
+                }
+                if (!file.exists() || condition.getOverwrite()) {
+                    cfg.getTemplate("service-impl_micro.ftl").process(data,
                             new FileWriter(file));
                     System.out.println(modelNameUpperCamel + "ServiceImpl.java 生成成功");
                 }

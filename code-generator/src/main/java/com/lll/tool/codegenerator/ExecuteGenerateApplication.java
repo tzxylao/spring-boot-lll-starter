@@ -17,7 +17,7 @@ import static com.lll.tool.codegenerator.generate.CodeGenerator.*;
 public class ExecuteGenerateApplication {
 
     public static void main(String[] args) {
-        generateByTableName("user_role");
+        generateByTableName("user_background");
     }
 
     /**
@@ -51,5 +51,11 @@ public class ExecuteGenerateApplication {
         reGenerateByModelEnum(modelEnums, "Order","order_order");
     }
 
+    public static void example4() {
+        List<CodeGenerator.GenCondition.ModelEnum> modelEnums = new ArrayList<>();
+        // 重新生成XXXAddVo
+        modelEnums.add(GenCondition.ModelEnum.CONTROLLER);
+        reGenerateByModelEnum(modelEnums, "user_role");
+    }
 
 }

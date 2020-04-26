@@ -1,32 +1,30 @@
 package com.company.project.orderserviceimpl.service;
 
 import cn.hutool.core.bean.BeanUtil;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.company.project.orderservice.pojo.entity.Order;
+import com.company.project.orderservice.service.OrderService;
+import com.company.project.orderservice.pojo.query.OrderQueryVo;
+import com.company.project.orderservice.pojo.add.OrderAddVo;
+import com.company.project.orderservice.pojo.update.OrderUpdateVo;
+import com.company.project.orderservice.pojo.query.OrderDetailVo;
+import com.company.project.orderservice.pojo.delete.OrderDeleteVo;
+import com.company.project.orderservice.pojo.result.OrderDetailResultVo;
+import com.company.project.orderservice.pojo.result.OrderResultVo;
+import com.company.project.base.mybatis.AbstractService;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.transaction.annotation.Transactional;
 import com.company.project.base.common.entity.Request;
 import com.company.project.base.common.entity.Result;
 import com.company.project.base.common.entity.ResultListVo;
-import com.company.project.base.mybatis.AbstractService;
-import com.company.project.orderservice.pojo.add.OrderAddVo;
-import com.company.project.orderservice.pojo.delete.OrderDeleteVo;
-import com.company.project.orderservice.pojo.entity.Order;
-import com.company.project.orderservice.pojo.query.OrderDetailVo;
-import com.company.project.orderservice.pojo.query.OrderQueryVo;
-import com.company.project.orderservice.pojo.result.OrderDetailResultVo;
-import com.company.project.orderservice.pojo.result.OrderResultVo;
-import com.company.project.orderservice.pojo.update.OrderUpdateVo;
-import com.company.project.orderservice.service.OrderService;
-import com.github.pagehelper.Page;
-import com.github.pagehelper.PageHelper;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RestController;
 
 
 /**
  * @author: laoliangliang
  * @description:
- * @create: 2020-04-25 17:18:40
+ * @create: 2020-04-26 15:35:21
  **/
-@Service
 @Transactional
 @RestController
 public class OrderServiceImpl extends AbstractService<Order> implements OrderService {
