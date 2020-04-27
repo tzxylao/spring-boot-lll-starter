@@ -26,6 +26,15 @@ Spring Boot lll starter项目是个基于企业级实战抽象脱胎出来的，
 自动生成代码工具在background-service-impl的test包中，对自动代码生成工具的`ModifiedConstant`类进行修改，`ExecuteGenerate`该类负责自动生成框架，
 自动生成代码支持两种格式，有一定差别，修改`ModifiedConstant`的`MODE`字段，分别支持普通后台和微服务
 
+### 第三步
+本项目微服务采用Nacos作为注册中心及配置中心，若只使用`background`后台管理项目，则只需要用到配置中心的功能，此时你也可以选择不使用Nacos，
+只需要将`spring.cloud.nacos.config.enabled`设置为false，就会用到项目下的`application-local.yml`的配置文件
+
+若你选择使用`Nacos`作为配置中心，需要知道一个规则，每个项目对应的配置在`Nacos`如何配置如下，详细配置规则点[这里](https://nacos.io/zh-cn/docs/quick-start-spring-cloud.html)
+
+![UTOOLS1587970821545.png](https://user-gold-cdn.xitu.io/2020/4/27/171ba6fcfde5810a?w=1350&h=248&f=png&s=31544)
+
+
 ## 技术选型
 1. SpringCloud Alibaba
 2. tkMybatis+MyBatis PageHelper分页插件
