@@ -33,5 +33,5 @@ public class ModifiedConstant {
     /**
      * 两种模式 1-后台系统模式background  2-微服务模式 请准确配置
      */
-    public static final Integer MODE = 1;
+    public static Integer MODE = 1;
 }
