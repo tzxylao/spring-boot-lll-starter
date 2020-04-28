@@ -13,6 +13,11 @@ Spring Boot lll starter项目是个基于企业级实战脱胎出来的，适用
 - [业务统一码](#1)
 
 ## 快速开发
+###
+快速观看操作步骤↓
+
+[**视频操作**](https://v.youku.com/v_show/id_XNDY1MjcxNDI2NA==.html?spm=a2h0c.8166622.PhoneSokuUgc_1.dtitle)
+
 ### 第一步
 项目目标是适用于**管理平台及微服务**
 若开发微服务可删除`background`保留剩下的；
