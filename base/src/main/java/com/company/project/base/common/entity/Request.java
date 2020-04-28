@@ -39,10 +39,12 @@ public class Request<T> {
     private List<BusinessWrap> businessClass;
 
     public static BusinessWrap wrap(Class clazz) {
-        return new BusinessWrap(clazz);
+        String cla = clazz.getSimpleName().substring(0, 1).toLowerCase() + clazz.getSimpleName().substring(1);
+        return new BusinessWrap(cla);
     }
 
     public static BusinessWrap wrap(Class clazz,String action) {
-        return new BusinessWrap(clazz, action);
+        String cla = clazz.getSimpleName().substring(0, 1).toLowerCase() + clazz.getSimpleName().substring(1);
+        return new BusinessWrap(cla, action);
     }
 }

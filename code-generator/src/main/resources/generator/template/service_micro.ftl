@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @description:
  * @create: ${date}
  **/
-@FeignClient(name = "${modelNameLowerCamel}", fallbackFactory = ${modelNameUpperCamel}Service.ServiceFallbackFactory.class)
+@FeignClient(name = "${project}", fallbackFactory = ${modelNameUpperCamel}Service.ServiceFallbackFactory.class)
 public interface ${modelNameUpperCamel}Service extends Service<${modelNameUpperCamel}> {
 
     /**

@@ -14,5 +14,7 @@ spring:
     name: order
   profiles:
     active: local
+  main:
+    allow-bean-definition-overriding: true
 server:
   port: 8083

@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestBody;
  * @description:
  * @create: 2020-04-26 14:49:30
  **/
-@FeignClient(name = "userRole", fallbackFactory = UserRoleService.ServiceFallbackFactory.class)
+@FeignClient(name = "user", fallbackFactory = UserRoleService.ServiceFallbackFactory.class)
 public interface UserRoleService extends Service<UserRole> {
 
     /**

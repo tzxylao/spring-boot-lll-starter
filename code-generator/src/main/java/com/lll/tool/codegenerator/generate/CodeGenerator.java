@@ -635,6 +635,8 @@ public class CodeGenerator {
             data.put("fields", javaBean.getFields());
             data.put("hasDate", javaBean.getHasDate());
             data.put("javaBean", javaBean);
+            data.put("project", PROJECT);
+
             javaBean.setHasDelete(condition.getModel().contains(GenCondition.ModelEnum.DELETE));
 
             File file;

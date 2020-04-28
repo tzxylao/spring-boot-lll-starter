@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.company.project.userserviceimpl.mapper.UserRoleMapper">
-  <resultMap id="BaseResultMap" type="com.company.project.userservice.pojo.entity.UserRole">
-    <!--
-      WARNING - @mbg.generated
-    -->
-    <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="role_name" jdbcType="VARCHAR" property="roleName" />
-    <result column="creator" jdbcType="VARCHAR" property="creator" />
-    <result column="created" jdbcType="TIMESTAMP" property="created" />
-    <result column="modifier" jdbcType="VARCHAR" property="modifier" />
-    <result column="modified" jdbcType="TIMESTAMP" property="modified" />
-  </resultMap>
+    <resultMap id="BaseResultMap" type="com.company.project.userservice.pojo.entity.UserRole">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="role_name" jdbcType="VARCHAR" property="roleName"/>
+        <result column="creator" jdbcType="VARCHAR" property="creator"/>
+        <result column="created" jdbcType="TIMESTAMP" property="created"/>
+        <result column="modifier" jdbcType="VARCHAR" property="modifier"/>
+        <result column="modified" jdbcType="TIMESTAMP" property="modified"/>
+    </resultMap>
+    <select id="selectUserRoleList" resultType="com.company.project.userservice.pojo.result.UserRoleResultVo">
+      select role_name from user_role;
+    </select>
+    <select id="selectUserRole"
+            resultType="com.company.project.userservice.pojo.result.UserRoleDetailResultVo">
+        select role_name from user_role
+        where id=#{id}
+    </select>
 </mapper>

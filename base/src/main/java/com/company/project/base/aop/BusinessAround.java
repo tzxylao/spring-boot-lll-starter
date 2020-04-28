@@ -65,7 +65,7 @@ public class BusinessAround {
     }
 
     private String postHandle(ProceedingJoinPoint joinPoint, Object result) {
-        if (result != null && result instanceof Result) {
+        if (result instanceof Result) {
             if (businessProcessor != null) {
                 Object[] args = joinPoint.getArgs();
                 Request request = null;
