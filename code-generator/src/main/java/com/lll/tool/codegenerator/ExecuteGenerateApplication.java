@@ -6,9 +6,7 @@ import com.lll.tool.codegenerator.generate.CodeGenerator;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.lll.tool.codegenerator.ModifiedConstant.PROJECT;
 import static com.lll.tool.codegenerator.generate.CodeGenerator.*;
-import static com.lll.tool.codegenerator.generate.CodeGenerator.reGenerateByModelEnum;
 
 
 /**
@@ -22,11 +20,11 @@ public class ExecuteGenerateApplication {
       注意修改配置
      */
     static {
-        ModifiedConstant.PROJECT = "order";
+        ModifiedConstant.PROJECT = "background";
         ModifiedConstant.MODE = 1;
     }
     public static void main(String[] args) {
-        generateByTableName("order_order");
+        generateByTableName("user_background");
     }
 
     /**

@@ -5,10 +5,10 @@ spring:
       password: nacos
       config:
         refresh-enabled: true
-        server-addr: 47.98.60.103:8848
+        server-addr: localhost:8848
         file-extension: yml
       discovery:
-        server-addr: 47.98.60.103:8848
+        server-addr: localhost:8848
   application:
     name: order
   profiles:
