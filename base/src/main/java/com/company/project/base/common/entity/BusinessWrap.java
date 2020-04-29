@@ -6,10 +6,10 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class BusinessWrap {
-    private String clazz;
+    private Class clazz;
     private String action;
 
-    BusinessWrap(String clazz) {
+    BusinessWrap(Class clazz) {
         this.clazz = clazz;
     }
 }

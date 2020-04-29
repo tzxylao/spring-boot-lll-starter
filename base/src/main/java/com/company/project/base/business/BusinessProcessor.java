@@ -28,7 +28,7 @@ public class BusinessProcessor implements IBusinessProcessor {
             return;
         }
         for (BusinessWrap businessWrap : businessClass) {
-            String clazz = businessWrap.getClazz();
+            Class clazz = businessWrap.getClazz();
             String action = businessWrap.getAction();
             Object bean = applicationContext.getBean(clazz);
             if (bean instanceof IBusinessBefore) {
@@ -48,7 +48,7 @@ public class BusinessProcessor implements IBusinessProcessor {
             return;
         }
         for (BusinessWrap businessWrap : businessClass) {
-            String clazz = businessWrap.getClazz();
+            Class clazz = businessWrap.getClazz();
             String action = businessWrap.getAction();
             Object bean = applicationContext.getBean(clazz);
             if (bean instanceof IBusinessAfter) {

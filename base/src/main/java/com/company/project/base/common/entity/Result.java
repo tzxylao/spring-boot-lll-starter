@@ -1,6 +1,7 @@
 package com.company.project.base.common.entity;
 
 import com.company.project.base.common.enums.BaseStatusEnum;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -20,26 +21,24 @@ public class Result<T> {
     /**
      * 执行业务类名
      */
+    @JsonIgnore
     private List<BusinessWrap> businessClass;
 
     public static BusinessWrap wrap(Class clazz) {
-        String cla = clazz.getSimpleName().substring(0, 1).toLowerCase() + clazz.getSimpleName().substring(1);
-        return new BusinessWrap(cla);
+        return new BusinessWrap(clazz);
     }
 
     public static List<BusinessWrap> wrapArray(Class... clazz) {
         List<BusinessWrap> wraps = new ArrayList<>();
         for (Class aClass : clazz) {
-            String cla = aClass.getSimpleName().substring(0, 1).toLowerCase() + aClass.getSimpleName().substring(1);
-            BusinessWrap businessWrap = new BusinessWrap(cla);
+            BusinessWrap businessWrap = new BusinessWrap(aClass);
             wraps.add(businessWrap);
         }
         return wraps;
     }
 
     public static BusinessWrap wrap(Class clazz, String action) {
-        String cla = clazz.getSimpleName().substring(0, 1).toLowerCase() + clazz.getSimpleName().substring(1);
-        return new BusinessWrap(cla, action);
+        return new BusinessWrap(clazz, action);
     }
 
     public Result<T> addBusinessClass(List<BusinessWrap> businessClass) {

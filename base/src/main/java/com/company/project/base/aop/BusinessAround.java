@@ -38,7 +38,7 @@ public class BusinessAround {
     @Autowired(required = false)
     private IBusinessProcessor businessProcessor;
 
-    @Pointcut(value = "execution(com.company.project.base.common.entity.Result com.company.project.*.controller.*.*(com.company.project.base.common.entity.Request))")
+    @Pointcut(value = "execution(com.company.project.base.common.entity.Result com.company.project.*.service.*.*(com.company.project.base.common.entity.Request))")
     private void pointcut() {
     }
 
