@@ -55,6 +55,7 @@ Spring Boot lll starter项目是个基于企业级实战脱胎出来的，适用
 ## 代码目录
 
 - spring-boot-lll-starter
+  - auth 认证服务器，用来获取token
   - base 基础包，随项目升级自行进行迭代
     - aop 全局aop包 目前有业务码及日志打印的处理
     - business 业务处理器及接口
@@ -82,6 +83,18 @@ Spring Boot lll starter项目是个基于企业级实战脱胎出来的，适用
   - order 订单项目，作为微服务演示调用方，结构与`background`一致
   - user 订单项目，作为微服务演示被调用方，结构与`background`一致
 
+## auth模块使用说明
+1. 目前`background`模块整合了Oauth2认证，关注`config/auth`中的配置内容，若不需要使用该模块请删除`auth`包，及`pom`中的`oauth`内容
+2. 若要使用token认证来调用接口，先关注`auth`大模块`auth-serivce-impl`中`resources/init.sql`，在自己数据库运行，修改`appication.yml`配置后运行`AuthApplication`，完成启动auth
+3. 调用认证服务器获取token，需要的参数如下,`http://localhost:9001/oauth/token?grant_type=password&username=resource_admin&password=user`
+
+![UTOOLS1588152184949.png](https://user-gold-cdn.xitu.io/2020/4/29/171c53f2adbd3dae?w=992&h=549&f=png&s=56651)
+
+4. 刷新token方法，`http://localhost:9001/oauth/token?grant_type=refresh_token&username=project_admin&password=user&refresh_token=344eb5ef-49e0-4078-8813-3dac7f761092`
+
+![UTOOLS1588152324941.png](https://user-gold-cdn.xitu.io/2020/4/29/171c5414d6bb152b?w=1167&h=560&f=png&s=51169)
+
+> ps: 如果报什么奇奇怪怪的错误，或者access_token以=结尾，删掉`oauth_access_token`表中对应的行数据，重新获取token
 
 ## 说明
 1. 你会看到我的自动生成代码显得比较复杂，有那么多查询返回的自定义类，业务初期你可能一个简单的单表查询就能解决所有字段的查询，
@@ -93,3 +106,4 @@ Spring Boot lll starter项目是个基于企业级实战脱胎出来的，适用
 6. **业务统一码**：<span id="1">根据企业实战，我们业务后期常会遇到一种情况，好多接口的调用都可能会需要操作相同的业务，比如用户的很多行为，都可能改变用户状态，
 我的业务码设计就是为了解决这种情况`Result.ok().addBusinessClass(Result.wrap(BusinessEnum.A001.getClazz())) `通过这样添加业务码统一去解决同一件事，你可以处理的参数为入参和出参
 </span>
+
