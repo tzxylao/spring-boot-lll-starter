@@ -58,6 +58,7 @@ public class ResourcesServerConfig extends ResourceServerConfigurerAdapter {
                 .antMatchers("/v2/api-docs", "/swagger-resources/configuration/ui",
                         "/swagger-resources", "/swagger-resources/configuration/security", "/webjars/**",
                         "/swagger-ui.html").permitAll()
+                // 控制认证的访问地址
                 .antMatchers("/**").authenticated();
     }
 }
