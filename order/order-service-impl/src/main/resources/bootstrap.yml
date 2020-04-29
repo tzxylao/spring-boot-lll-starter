@@ -10,7 +10,7 @@ spring:
         file-extension: yml
       discovery:
         server-addr: localhost:8848
-        register-enabled: false
+        register-enabled: true
   application:
     name: order
   profiles:
