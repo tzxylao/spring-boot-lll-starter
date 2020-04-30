@@ -35,6 +35,7 @@ public class OrderServiceImpl extends AbstractService<Order> implements OrderSer
         Page<Object> page = PageHelper.startPage(orderOrderQueryVo.getPage(), orderOrderQueryVo.getPageSize());
         //       List<OrderResultVo> resultVos = ((OrderMapper)this.mapper).selectOrderList(orderOrderQueryVo);
         //       return Result.ok(new ResultListVo<OrderResultVo>().setList(resultVos).setTotal(page.getTotal()));
+        System.out.println("getOrderList");
         return Result.ok();
     }
 

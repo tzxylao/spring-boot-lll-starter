@@ -1,0 +1,47 @@
+---
+spring:
+  cloud:
+    gateway:
+      routes:
+      # 所有访问 localhost:8000/order/xxxx的请求都会转发到order模块，更详细的参考：https://juejin.im/post/5eaa6d136fb9a0436a7c5cf5
+      - id: order-route
+        uri: lb://order
+        predicates:
+        - Path=/order/**
+        filters:
+        - StripPrefix=1
+      # 访问background http://localhost:8000/back/user/background/list
+      - id: background_route
+        uri: http://localhost:8081
+        predicates:
+        - Path=/back/**,/bak/**
+        filters:
+        - StripPrefix=1
+      # 访问任意网址 http://localhost:8000/baidu?wd=springcloudgateway
+      - id: baidu_route
+        uri: https://www.baidu.com/
+        predicates:
+        - Path=/baidu/**
+    nacos:
+      username: nacos
+      password: nacos
+      discovery:
+        server-addr: localhost:8848
+  application:
+    name: service-gateway
+server:
+  port: 8000
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+---
+hystrix:
+  command:
+    fallbackcmd:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 5000

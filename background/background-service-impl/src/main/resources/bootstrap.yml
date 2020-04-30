@@ -4,7 +4,7 @@ spring:
       username: nacos
       password: nacos
       config:
-        enabled: false
+        enabled: true
         refresh-enabled: true
         server-addr: localhost:8848
         file-extension: yml
