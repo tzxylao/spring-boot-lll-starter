@@ -35,7 +35,7 @@ public class Business001 implements IBusinessAfter {
     }
 
     @Override
-    public void run(Request request, Result result) {
+    public void run(Request request, Result result, Object extendObj) {
         System.out.println("神奇的执行方法,version:" + version);
     }
 }

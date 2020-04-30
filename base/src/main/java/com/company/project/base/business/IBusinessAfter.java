@@ -8,5 +8,5 @@ import com.company.project.base.common.entity.Result;
  */
 public interface IBusinessAfter {
 
-    void run(Request request, Result result);
+    void run(Request request, Result result, Object extendObj);
 }

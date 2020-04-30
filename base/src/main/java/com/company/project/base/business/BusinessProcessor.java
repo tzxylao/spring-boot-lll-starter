@@ -30,12 +30,13 @@ public class BusinessProcessor implements IBusinessProcessor {
         for (BusinessWrap businessWrap : businessClass) {
             Class clazz = businessWrap.getClazz();
             String action = businessWrap.getAction();
+            Object extendObj = businessWrap.getExtendObj();
             Object bean = applicationContext.getBean(clazz);
             if (bean instanceof IBusinessBefore) {
                 if (action == null) {
-                    ((IBusinessBefore) bean).run(request, null);
-                }else{
-                    ReflectUtil.invoke(bean, action, request, null);
+                    ((IBusinessBefore) bean).run(request, null, extendObj);
+                } else {
+                    ReflectUtil.invoke(bean, action, request, null, extendObj);
                 }
             }
         }
@@ -50,12 +51,13 @@ public class BusinessProcessor implements IBusinessProcessor {
         for (BusinessWrap businessWrap : businessClass) {
             Class clazz = businessWrap.getClazz();
             String action = businessWrap.getAction();
+            Object extendObj = businessWrap.getExtendObj();
             Object bean = applicationContext.getBean(clazz);
             if (bean instanceof IBusinessAfter) {
                 if (action == null) {
-                    ((IBusinessAfter) bean).run(request, result);
-                }else{
-                    ReflectUtil.invoke(bean, action, request, result);
+                    ((IBusinessAfter) bean).run(request, result, extendObj);
+                } else {
+                    ReflectUtil.invoke(bean, action, request, result, extendObj);
                 }
             }
         }

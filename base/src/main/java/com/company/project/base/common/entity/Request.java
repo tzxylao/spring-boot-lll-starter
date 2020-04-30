@@ -1,11 +1,9 @@
 package com.company.project.base.common.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -15,7 +13,7 @@ import java.util.Map;
  **/
 @Data
 @NotNull
-public class Request<T> {
+public class Request<T> extends AbstractBusiness{
     /**
      * 请求体
      */
@@ -32,17 +30,4 @@ public class Request<T> {
      */
     private Map<String,Object> extend;
 
-    /**
-     * 执行业务类名
-     */
-    @JsonIgnore
-    private List<BusinessWrap> businessClass;
-
-    public static BusinessWrap wrap(Class clazz) {
-        return new BusinessWrap(clazz);
-    }
-
-    public static BusinessWrap wrap(Class clazz,String action) {
-        return new BusinessWrap(clazz, action);
-    }
 }

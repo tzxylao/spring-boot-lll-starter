@@ -1,7 +1,6 @@
 package com.company.project.base.common.entity;
 
 import com.company.project.base.common.enums.BaseStatusEnum;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -13,33 +12,11 @@ import java.util.List;
  * @create: 2020/4/20 11:06
  **/
 @Data
-public class Result<T> {
+public class Result<T> extends AbstractBusiness{
     private T data;
     private Integer status;
     private Boolean success;
     private String message;
-    /**
-     * 执行业务类名
-     */
-    @JsonIgnore
-    private List<BusinessWrap> businessClass;
-
-    public static BusinessWrap wrap(Class clazz) {
-        return new BusinessWrap(clazz);
-    }
-
-    public static List<BusinessWrap> wrapArray(Class... clazz) {
-        List<BusinessWrap> wraps = new ArrayList<>();
-        for (Class aClass : clazz) {
-            BusinessWrap businessWrap = new BusinessWrap(aClass);
-            wraps.add(businessWrap);
-        }
-        return wraps;
-    }
-
-    public static BusinessWrap wrap(Class clazz, String action) {
-        return new BusinessWrap(clazz, action);
-    }
 
     public Result<T> addBusinessClass(List<BusinessWrap> businessClass) {
         List<BusinessWrap> businessClassList = this.getBusinessClass();
