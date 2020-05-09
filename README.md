@@ -22,12 +22,12 @@ Spring Boot lll starter项目是个基于企业级实战脱胎出来的，适用
 ### 第一步
 项目目标是适用于**管理平台及微服务**
 若开发微服务可删除`background`保留剩下的；
-若开发管理平台后台，则可删除`order`、`user`项目，保留`base`及`background`，然后请对background项目进行改名，但请保留基本格式(**否则自动代码生成不生效**)：
-- 项目名
-  - 项目名-service
-    - com.公司名.模块名.项目名service
-  - 项目名-service-impl
-    - com.公司名.模块名.项目名serviceimpl
+若开发管理平台后台，则可删除`order`、`user`模块，保留`base`及`background`，然后请对background模块进行改名，但请保留基本格式(**否则自动代码生成不生效**)：
+- 模块名
+  - 模块名-service
+    - com.公司名.项目名.模块名service
+  - 模块名-service-impl
+    - com.公司名.项目名.模块名serviceimpl
 
 ### 第二步
 自动生成代码工具为`code-generator`模块，其中`ModifiedConstant`类进行基础配置修改，`ExecuteGenerate`该类负责自动生成代码
