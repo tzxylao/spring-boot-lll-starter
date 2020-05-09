@@ -8,16 +8,28 @@ import lombok.experimental.Accessors;
 @AllArgsConstructor
 @Accessors(chain = true)
 public class BusinessWrap {
-    private Class clazz;
+    /**
+     * 用作业务类
+     */
+    private Class bussinessClazz;
+
+    /**
+     * 扩展对象，填写自定义对象
+     */
     private Object extendObj;
+
+    /**
+     * 执行业务动作
+     */
     private String action;
 
-    BusinessWrap(Class clazz) {
-        this.clazz = clazz;
+    BusinessWrap(Class bussinessClazz) {
+        this.bussinessClazz = bussinessClazz;
     }
 
-    public BusinessWrap(Class clazz, Object extendObj) {
-        this.clazz = clazz;
+    public BusinessWrap(Class bussinessClazz, Object extendObj) {
+        this.bussinessClazz = bussinessClazz;
         this.extendObj = extendObj;
     }
+
 }

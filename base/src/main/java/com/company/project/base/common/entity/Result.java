@@ -1,7 +1,9 @@
 package com.company.project.base.common.entity;
 
 import com.company.project.base.common.enums.BaseStatusEnum;
+import jdk.nashorn.internal.ir.annotations.Ignore;
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,11 +14,17 @@ import java.util.List;
  * @create: 2020/4/20 11:06
  **/
 @Data
-public class Result<T> extends AbstractBusiness{
+@Accessors(chain = true)
+public class Result<T> extends AbstractBusiness {
     private T data;
     private Integer status;
     private Boolean success;
     private String message;
+    /**
+     * 原值，目前只用于日志获取原先值
+     */
+    @Ignore
+    private Object source;
 
     public Result<T> addBusinessClass(List<BusinessWrap> businessClass) {
         List<BusinessWrap> businessClassList = this.getBusinessClass();

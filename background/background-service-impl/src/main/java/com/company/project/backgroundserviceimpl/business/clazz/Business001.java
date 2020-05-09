@@ -3,6 +3,7 @@ package com.company.project.backgroundserviceimpl.business.clazz;
 import com.company.project.base.business.IBusinessAfter;
 import com.company.project.base.common.entity.Request;
 import com.company.project.base.common.entity.Result;
+import com.company.project.base.log.ILogAfter;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -16,7 +17,7 @@ import org.springframework.stereotype.Component;
 @Component
 @ConfigurationProperties(prefix = "nacos")
 @Data
-public class Business001 implements IBusinessAfter {
+public class Business001 implements IBusinessAfter, ILogAfter {
 
     /**
      * 简单配置例子
@@ -37,5 +38,10 @@ public class Business001 implements IBusinessAfter {
     @Override
     public void run(Request request, Result result, Object extendObj) {
         System.out.println("神奇的执行方法,version:" + version);
+    }
+
+    @Override
+    public void writeLog(Request request, Result result, Object extendObj) {
+        System.out.println("写入日志:" + readableValue(request, result));
     }
 }

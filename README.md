@@ -11,6 +11,7 @@ Spring Boot lll starter项目是个基于企业级实战脱胎出来的，适用
 - swagger2开发文档集成，启动后访问`localhost:8081/swagger-ui.html`
 - feign RPC调用
 - [业务统一码](#1)
+- [日志接口封装](#2)
 
 ## 快速开发
 ###
@@ -50,7 +51,8 @@ Spring Boot lll starter项目是个基于企业级实战脱胎出来的，适用
 5. hutool工具集
 6. lombok
 7. feign
-8. 其它技术，如Redis，ElasticSearch等请随业务需要自行添加
+8. Spring Cloud Gateway 网关
+9. 其它技术，如Redis，ElasticSearch等请随业务需要自行添加
 
 ## 代码目录
 
@@ -83,19 +85,6 @@ Spring Boot lll starter项目是个基于企业级实战脱胎出来的，适用
   - order 订单项目，作为微服务演示调用方，结构与`background`一致
   - user 订单项目，作为微服务演示被调用方，结构与`background`一致
 
-## auth模块使用说明
-1. 目前`background`模块整合了Oauth2认证，关注`config/auth`中的配置内容，若不需要使用该模块请删除`auth`包，及`pom`中的`oauth`内容
-2. 若要使用token认证来调用接口，先关注`auth`大模块`auth-serivce-impl`中`resources/init.sql`，在自己数据库运行，修改`appication.yml`配置后运行`AuthApplication`，完成启动auth
-3. 调用认证服务器获取token，需要的参数如下,`http://localhost:9001/oauth/token?grant_type=password&username=resource_admin&password=user`
-
-![UTOOLS1588152184949.png](https://user-gold-cdn.xitu.io/2020/4/29/171c53f2adbd3dae?w=992&h=549&f=png&s=56651)
-
-4. 刷新token方法，`http://localhost:9001/oauth/token?grant_type=refresh_token&username=project_admin&password=user&refresh_token=344eb5ef-49e0-4078-8813-3dac7f761092`
-
-![UTOOLS1588152324941.png](https://user-gold-cdn.xitu.io/2020/4/29/171c5414d6bb152b?w=1167&h=560&f=png&s=51169)
-
-> ps: 如果报什么奇奇怪怪的错误，或者access_token以=结尾，删掉`oauth_access_token`表中对应的行数据，重新获取token
-
 ## 说明
 1. 你会看到我的自动生成代码显得比较复杂，有那么多查询返回的自定义类，业务初期你可能一个简单的单表查询就能解决所有字段的查询，
 但需求是一直在变的，很快你就要面对重新定义返回类，入参类等等，所以我决定在代码生成初期就尽可能的细分代码
@@ -107,3 +96,6 @@ Spring Boot lll starter项目是个基于企业级实战脱胎出来的，适用
 我的业务码设计就是为了解决这种情况`Result.ok().addBusinessClass(Result.wrap(BusinessEnum.A001.getClazz())) `通过这样添加业务码统一去解决同一件事，你可以处理的参数为入参和出参
 </span>
 
+## 更多详细文档
+- [Token认证模块](https://github.com/tzxylao/spring-boot-lll-starter/wiki/1.-Token%E8%AE%A4%E8%AF%81%E6%A8%A1%E5%9D%97)
+- <span id="2">[日志接口使用说明](https://github.com/tzxylao/spring-boot-lll-starter/wiki/2.-%E6%97%A5%E5%BF%97%E6%8E%A5%E5%8F%A3%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E)</span>
