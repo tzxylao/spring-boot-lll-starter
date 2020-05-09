@@ -1,7 +1,7 @@
 package com.company.project.base.common.entity;
 
 import com.company.project.base.common.enums.BaseStatusEnum;
-import jdk.nashorn.internal.ir.annotations.Ignore;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -23,7 +23,7 @@ public class Result<T> extends AbstractBusiness {
     /**
      * 原值，目前只用于日志获取原先值
      */
-    @Ignore
+    @JsonIgnore
     private Object source;
 
     public Result<T> addBusinessClass(List<BusinessWrap> businessClass) {
