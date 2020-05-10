@@ -27,6 +27,9 @@ public class LogUtil {
      * @return
      */
     public static String convertReadable(Object updateClass, Object sourceClass) {
+        if (updateClass == null || sourceClass == null) {
+            return "";
+        }
         StringBuilder builder = new StringBuilder();
         ApiModel apiModel = AnnotationUtils.getAnnotation(updateClass.getClass(), ApiModel.class);
         if (apiModel != null) {
