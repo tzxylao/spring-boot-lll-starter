@@ -1,5 +1,6 @@
 package com.company.project.dataway.config;
 
+import com.company.project.base.common.entity.Result;
 import net.hasor.core.ApiBinder;
 import net.hasor.core.DimModule;
 import net.hasor.dataway.spi.ApiInfo;
@@ -11,12 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
+import java.util.Map;
 
 @DimModule
 @Component
 public class ExampleModule implements SpringModule {
     @Autowired
-    private DataSource dataSource = null;
+    private DataSource dataSource;
 
     @Override
     public void loadModule(ApiBinder apiBinder) throws Throwable {
@@ -25,7 +27,10 @@ public class ExampleModule implements SpringModule {
         apiBinder.bindSpiListener(ResultProcessChainSpi.class, new ResultProcessChainSpi() {
             @Override
             public Object callAfter(boolean formPre, ApiInfo apiInfo, Object result) {
-                return null;
+                Map<String, Object> optionMap = apiInfo.getOptionMap();
+                optionMap.put("resultStructure", false);
+                apiInfo.setOptionMap(optionMap);
+                return Result.ok(result);
             }
         });
     }

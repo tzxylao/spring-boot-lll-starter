@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @EnableHasor
 @EnableHasorWeb
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.company.project")
 public class DatawayApplication {
 
     public static void main(String[] args) {
