@@ -12,6 +12,7 @@ Spring Boot lll starter项目是个基于企业级实战脱胎出来的，适用
 - feign RPC调用
 - [业务统一码](#1)
 - [日志接口封装](#2)
+- [Sentinal限流熔断](#3)
 
 ## 快速开发
 ###
@@ -52,7 +53,8 @@ Spring Boot lll starter项目是个基于企业级实战脱胎出来的，适用
 6. lombok
 7. feign
 8. Spring Cloud Gateway 网关
-9. 其它技术，如Redis，ElasticSearch等请随业务需要自行添加
+9. sentinel限流
+10. 其它技术，如Redis，ElasticSearch等请随业务需要自行添加
 
 ## 代码目录
 
@@ -99,3 +101,4 @@ Spring Boot lll starter项目是个基于企业级实战脱胎出来的，适用
 ## 更多详细文档
 - [Token认证模块](https://github.com/tzxylao/spring-boot-lll-starter/wiki/1.-Token%E8%AE%A4%E8%AF%81%E6%A8%A1%E5%9D%97)
 - <span id="2">[日志接口使用说明](https://github.com/tzxylao/spring-boot-lll-starter/wiki/2.-%E6%97%A5%E5%BF%97%E6%8E%A5%E5%8F%A3%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E)</span>
+- <span id="3">[sentinel限流](https://github.com/tzxylao/spring-boot-lll-starter/wiki/4.-Sentinal%E9%99%90%E6%B5%81%E8%AF%B4%E6%98%8E)</span>

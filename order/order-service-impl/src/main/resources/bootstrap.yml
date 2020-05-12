@@ -11,6 +11,22 @@ spring:
       discovery:
         server-addr: localhost:8848
         register-enabled: true
+    sentinel:
+      eager: false
+      transport:
+        dashboard: localhost:8080
+      datasource:
+        ds:
+          nacos:
+            server-addr: localhost:8848
+            dataId: ${spring.application.name}-sentinel
+            ruleType: flow
+            groupId: DEFAULT_GROUP
+#        ds1:
+#          file:
+#            file: classpath:flowrule.json
+#            rule-type: flow
+#            data-type: json
   application:
     name: order
   profiles:

@@ -1,14 +1,14 @@
 package com.company.project.orderserviceimpl.controller;
 
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.company.project.base.common.entity.Request;
 import com.company.project.base.common.entity.Result;
 import com.company.project.base.common.entity.ResultListVo;
-import com.company.project.userservice.pojo.add.UserRoleAddVo;
+import com.company.project.orderserviceimpl.handler.ExceptionUtil;
 import com.company.project.userservice.pojo.query.UserQueryVo;
 import com.company.project.userservice.pojo.query.UserRoleDetailVo;
 import com.company.project.userservice.pojo.result.UserResultVo;
 import com.company.project.userservice.pojo.result.UserRoleDetailResultVo;
-import com.company.project.userservice.pojo.update.UserRoleUpdateVo;
 import com.company.project.userservice.service.UserRoleService;
 import com.company.project.userservice.service.UserService;
 import io.swagger.annotations.Api;
@@ -38,15 +38,16 @@ public class OrderController {
 
     @ApiOperation("查询用户列表")
     @PostMapping("/list")
+    @SentinelResource(value = "user_list", blockHandler = "handleException", blockHandlerClass = ExceptionUtil.class)
     public Result<ResultListVo<UserResultVo>> getOrderList(@Validated @RequestBody Request<UserQueryVo> request) {
         return userService.getUserList(request);
     }
 
     @ApiOperation("查询角色表单项")
     @PostMapping("/detail")
+    @SentinelResource(value = "user_detail", blockHandler = "handleException", blockHandlerClass = ExceptionUtil.class)
     public Result<UserRoleDetailResultVo> getUserRole(@Validated @RequestBody Request<UserRoleDetailVo> request) {
         return userRoleService.getUserRole(request);
     }
-
 
 }
